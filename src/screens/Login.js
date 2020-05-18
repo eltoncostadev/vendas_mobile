@@ -19,10 +19,10 @@ export default class Login extends Component {
 
     state = {
         stageNew: false,
-        email: 'eltoncostabr@gmail.com',
+        email: 'mariaap@gmail.com',
         senha: '123456',
         confirmacao: '123456',
-        nome: 'Elton Costa'
+        nome: 'Maria Aparecida'
     }
 
     render() {

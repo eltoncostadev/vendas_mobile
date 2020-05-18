@@ -35,8 +35,10 @@ export default class Home extends Component {
             <ImageBackground source={backgroundImage}
                 style={{ width: '100%', height: '100%' }}>
                 <View style={styles.header}>
-                    <Icon name='bars'
-                        style={styles.menuIcon} />
+                    <TouchableOpacity onPress={() => this.props.navigation.openDrawer()}>
+                        <Icon name='bars'
+                            style={styles.menuIcon} />
+                    </TouchableOpacity>
                     <Text style={styles.title}>
                         Feira Online
                     </Text>
