@@ -1,14 +1,19 @@
 import React, { Component } from 'react'
 import {
     Text,
+    Image,
     StyleSheet,
     View,
-    TouchableOpacity
+    TouchableOpacity,
+    ImageBackground
 } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import {AsyncStorage} from 'react-native'
+import { AsyncStorage } from 'react-native'
 
 import InputIcon from '../components/InputIcon'
+
+import backgroundImage from '../../assets/imgs/BackGroundApp.png'
+import logoImage from '../../assets/imgs/FeiraOnline.png'
 
 export default class Login extends Component {
 
@@ -22,52 +27,58 @@ export default class Login extends Component {
 
     render() {
         return (
-            <View style={styles.background}>
-                <Icon name='shopping-basket' style={styles.logo} />
-                <Text style={styles.title}> Market Mobile </Text>
-                {this.state.stageNew &&
+            <ImageBackground source={backgroundImage} style={{ width: '100%', height: '100%' }}>
+
+                <View style={styles.background}>
+                    <Image
+                        source={logoImage}
+                        style={{ width: 200, height: 200 }}
+                    />
+                    <Text style={styles.title}> Feira Online </Text>
+                    {this.state.stageNew &&
+                        <InputIcon
+                            icon='user'
+                            placeholder='Nome'
+                            value={this.state.nome} />
+                    }
                     <InputIcon
-                        icon='user'
-                        placeholder='Nome'
-                        value={this.state.nome} />
-                }
-                <InputIcon
-                    icon='at'
-                    placeholder='Email'
-                    value={this.state.email} />
-                <InputIcon
-                    icon='lock'
-                    placeholder='Senha'
-                    value={this.state.senha} />
-                {this.state.stageNew &&
+                        icon='at'
+                        placeholder='Email'
+                        value={this.state.email} />
                     <InputIcon
-                        icon='asterisk'
-                        placeholder='Confirmação'
-                        value={this.state.confirmacao} />
-                }
-                <TouchableOpacity style={{ width: 200 }}
-                             onPress={
-                                 () => AsyncStorage.setItem('userState', JSON.stringify(this.state))
-                                }
-                            >
-                    <View style={styles.button}>
-                        <Text 
-                            onPress={() => this.props.navigation.navigate('Home')}
-                            style={{ color: '#ffffe6' }}>
+                        icon='lock'
+                        placeholder='Senha'
+                        value={this.state.senha} />
+                    {this.state.stageNew &&
+                        <InputIcon
+                            icon='asterisk'
+                            placeholder='Confirmação'
+                            value={this.state.confirmacao} />
+                    }
+                    <TouchableOpacity style={{ width: 200 }}
+                        onPress={
+                            () => AsyncStorage.setItem('userState', JSON.stringify(this.state))
+                        }
+                    >
+                        <View style={styles.button}>
+                            <Text
+                                onPress={() => this.props.navigation.navigate('Home')}
+                                style={{ color: '#ffffe6' }}>
                                 {this.state.stageNew ? 'Cadastrar' : 'Entrar'}
-                        </Text>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity style={{ width: 200 }}
-                    onPress={
-                        () => this.setState({ stageNew: !this.state.stageNew })}>
-                    <View style={styles.buttonText}>
-                        <Text>
-                            {this.state.stageNew ? 'Acessar sua conta?' : 'Ainda não possui conta?'}
-                        </Text>
-                    </View>
-                </TouchableOpacity>
-            </View>
+                            </Text>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{ width: 200 }}
+                        onPress={
+                            () => this.setState({ stageNew: !this.state.stageNew })}>
+                        <View style={styles.buttonText}>
+                            <Text>
+                                {this.state.stageNew ? 'Acessar sua conta?' : 'Ainda não possui conta?'}
+                            </Text>
+                        </View>
+                    </TouchableOpacity>
+                </View>
+            </ImageBackground>
         )
     }
 
@@ -75,16 +86,15 @@ export default class Login extends Component {
 
 const styles = StyleSheet.create({
     background: {
-        backgroundColor: '#99ff99',
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
     },
-    logo: {
-        fontSize: 80
-    },
     title: {
-        marginBottom: 10
+        marginBottom: 10,
+        fontSize: 50,
+        fontFamily: 'LeckerliOne-Regular',
+        color: '#E84D0B'
     },
     button: {
         width: '100%',

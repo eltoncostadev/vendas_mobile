@@ -14,7 +14,7 @@ export default props => {
 const styles = StyleSheet.create({
     container: {
         width: '80%',
-        height: 40,
+        height: 50,
         backgroundColor: '#EEE',
         borderRadius: 20,
         flexDirection: 'row',
@@ -24,9 +24,12 @@ const styles = StyleSheet.create({
     icon: {
         color: '#333',
         marginLeft: 10,
+        fontSize: 20
     },
     input: {
         marginLeft: 10,
-        width: '70%'
+        width: '70%',
+        fontFamily: 'Lato',
+        fontSize: 20
     }
 })
