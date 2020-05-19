@@ -3,53 +3,42 @@ import {
     View,
     Text,
     StyleSheet,
-    TouchableOpacity,
-    ImageBackground,
-    BackHandler,
-    FlatList
+    TouchableOpacity
 } from 'react-native'
-
 import Icon from 'react-native-vector-icons/FontAwesome'
 
-import backgroundImage from '../../assets/imgs/BackGroundApp.png'
 import commonStyles from '../commonStyles'
 
 export default class Store extends Component {
 
-    constructor(props) {
-        super(props)
-        this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
-    }
-
-    handleBackButtonClick() {
-        this.props.navigation.goBack(null);
-        return true;
-    }
-
-    componentDidMount() {
-        BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
-    }
-
     render() {
         return (
-            <View>
-                <ImageBackground source={backgroundImage}
-                    style={{ width: '100%', height: '100%' }}>
-                    <View style={styles.header}>
-                        <TouchableOpacity onPress={() => this.handleBackButtonClick()}>
-                            <Icon name='arrow-left'
-                                style={styles.menuIcon} />
-                        </TouchableOpacity>
-                        <Text style={styles.title}>
-                            Lista de Preço
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('ListPriceOther')}>
+                <View style={styles.storeListItem}>
+                    <View style={styles.storeImage}>
+                        <Icon name='image'
+                            style={{
+                                fontSize: 30,
+                                color: '#D11B00'
+                            }} />
+                        <Text style={{ color: '#D11B00' }}> Sem imagem </Text>
+                    </View>
+                    <View style={styles.storeDescription}>
+                        <Text style={styles.storeListItemName}>
+                            {this.props.Name}
+                        </Text>
+                        <Text style={styles.storeListItemType}>
+                            {this.props.Type}
+                        </Text>
+                        <Text style={styles.storeListItemDelivery}>
+                            {this.props.Delivery}
+                        </Text>
+                        <Text style={styles.storeListItemDeliveryTime}>
+                            <Icon name='history' style={{ fontSize: 20 }} /> {this.props.DeliveryTime}
                         </Text>
                     </View>
-                    <View style={styles.storeList}>
-                        <View style={styles.storeListContainer}>
-                        </View>
-                    </View>
-                </ImageBackground>
-            </View>
+                </View>
+            </TouchableOpacity>
         )
     }
 }

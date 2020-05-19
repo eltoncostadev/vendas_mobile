@@ -48,6 +48,14 @@ const MenuRoutes = {
             title: 'Lista de Preços'
         }
     },
+    ListPriceOther: {
+        name: 'Lista de Preços',
+        screen: props => <ListPrice title='Lista de Preços' {...props} />,
+        navigationOptions: {
+            drawerLabel: () => null,
+            title: 'Lista de Preços'
+        }
+    },
 }
 
 const MenuNavigator = createDrawerNavigator(MenuRoutes, menuConfig)
