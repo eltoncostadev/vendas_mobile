@@ -13,6 +13,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import InformationList from '../components/InformationList'
 
 import backgroundImage from '../../assets/imgs/BackGroundApp.png'
+import commonStyles from '../commonStyles'
 
 export default class Home extends Component {
 
@@ -99,20 +100,14 @@ export default class Home extends Component {
 }
 
 const styles = StyleSheet.create({
-    header: {
-        flex: 1,
-        flexDirection: 'row',
-        backgroundColor: '#ED9C50',
-        justifyContent: 'space-between',
-        alignItems: 'center'
-    },
+    header: commonStyles.header,
     menuIcon: {
         color: '#FFFFFF',
         fontSize: 30,
         marginLeft: 20
     },
     title: {
-        fontFamily: 'LeckerliOne-Regular',
+        fontFamily: commonStyles.fontFamilyList.LeckerliOneRegular,
         color: '#FFFFFF',
         fontSize: 40,
         marginRight: 20
@@ -155,7 +150,7 @@ const styles = StyleSheet.create({
     },
     mainInfoTitleText: {
         fontSize: 40,
-        fontFamily: 'Lato'
+        fontFamily: commonStyles.fontFamilyList.Lato
     },
     informationList: {
         flexDirection: 'row'

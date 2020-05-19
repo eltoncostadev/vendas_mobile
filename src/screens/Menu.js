@@ -10,7 +10,8 @@ export default class Menu extends Component {
         email: '',
         senha: '',
         confirmacao: '',
-        nome: 'Elton'
+        nome: 'Elton',
+        singleListMode: true
     }
 
     componentDidMount = async () => {

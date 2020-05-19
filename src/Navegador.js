@@ -6,6 +6,9 @@ import Login from './screens/Login'
 import Home from './screens/Home'
 import Menu from './screens/Menu'
 import ListPrice from './components/ListPrice'
+import StoreList from './components/StoreList'
+
+import { singleListMode } from './common'
 
 const menuConfig = {
     initialRouteName: 'Home',
@@ -26,15 +29,21 @@ const menuConfig = {
 const MenuRoutes = {
     Home: {
         name: 'Principal',
-        screen: props => <Home title='Home' {...props} />,
+        screen: props => <Home title='Inicio' {...props} />,
         navigationOptions: {
             //drawerLabel: () => null,
-            title: 'Home'
+            title: 'Inicio'
         }
     },
     ListPrice: {
         name: 'Lista de Preços',
-        screen: props => <ListPrice title='Lista de Preços' {...props} />,
+        screen: props => {
+            if(singleListMode){ 
+              return  <ListPrice title='Lista de Preços' {...props} />
+            }else{
+              return  <StoreList title='Lista de Preços' {...props} />
+            }
+        },
         navigationOptions: {
             title: 'Lista de Preços'
         }
