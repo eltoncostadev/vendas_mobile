@@ -29,9 +29,13 @@ export default class Home extends Component {
         const stateString = await AsyncStorage.getItem('userState')
         const state = JSON.parse(stateString)
         this.setState(state, this.filterTasks)
+        console.log(this.props.navigation.state)
     }
 
     render() {
+        
+        const { navigate } = this.props.navigation
+
         return (
             <ImageBackground source={backgroundImage}
                 style={{ width: '100%', height: '100%' }}>
@@ -45,15 +49,17 @@ export default class Home extends Component {
                     </Text>
                 </View>
                 <View style={styles.info}>
-                    <View style={styles.listPriceButton}>
-                        <Text style={styles.buttonText}>Lista de Preços</Text>
-                        <Icon style={{
-                            color: '#FFFFFF',
-                            fontSize: 70,
-                            marginRight: 15
-                        }}
-                            name='arrow-circle-right' />
-                    </View>
+                    <TouchableOpacity onPress={() =>navigate('StoreList')}>
+                        <View style={styles.listPriceButton}>
+                            <Text style={styles.buttonText}>Lista de Preços</Text>
+                            <Icon style={{
+                                color: '#FFFFFF',
+                                fontSize: 70,
+                                marginRight: 15
+                            }}
+                                name='arrow-circle-right' />
+                        </View>
+                    </TouchableOpacity>
                     <View style={styles.mainInfo}>
                         <View style={styles.mainInfoTitle}>
                             <Icon name='info-circle'

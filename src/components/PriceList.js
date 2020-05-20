@@ -17,29 +17,58 @@ import commonStyles from '../commonStyles'
 import PriceListCategories from './PriceListCategories'
 
 const initialState = {
-    categories: []
+    categories: [],
+    navigate: null
 }
 
 export default class PriceList extends Component {
+
+    constructor(props) {
+        super(props)
+        state = this.props.navigation.state.params.categories
+        //Binding handleBackButtonClick function with this
+        this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
+      }
+      componentDidMount() {
+        // This is the first method in the activity lifecycle
+        // Addding Event Listener for the BackPress 
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
+      }
+      componentWillUnmount() {
+        // This is the Last method in the activity lifecycle
+        // Removing Event Listener for the BackPress 
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
+      }
+      handleBackButtonClick() {
+        // Registered function to handle the Back Press
+        // We are generating an alert to show the back button pressed
+        //alert('You clicked back. Now Screen will move to ThirdPage');
+        // We can move to any screen. If we want
+        //this.props.navigation.navigate('StoreList');
+        this.state.navigate('StoreList')
+        // Returning true means we have handled the backpress
+        // Returning false means we haven't handled the backpress
+        //return true;
+        return true
+      }
 
     state = {
         ...initialState
     }
 
-    constructor(props) {
-        super(props)
-
-        state = this.props.navigation.state.params.categories
-
-    }
-
     render() {
+
+        const { navigate } = this.props.navigation
+
+        this.setState(this.state.navigate, () => navigate)
+
         return (
             <View>
                 <ImageBackground source={backgroundImage}
                     style={{ width: '100%', height: '100%' }}>
                     <View style={styles.header}>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('ListPrice')}>
+                        <TouchableOpacity
+                            onPress={() => navigate('StoreList')}>
                             <Icon name='arrow-left'
                                 style={styles.menuIcon} />
                         </TouchableOpacity>
@@ -49,7 +78,7 @@ export default class PriceList extends Component {
                     </View>
                     <View style={styles.storeList}>
                         <View style={styles.storeListContainer}>
-                            <PriceListCategories categories={state}></PriceListCategories>
+                            <PriceListCategories categories={state} {...this.props}></PriceListCategories>
                         </View>
                     </View>
                 </ImageBackground>

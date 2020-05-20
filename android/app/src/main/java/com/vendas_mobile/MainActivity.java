@@ -26,4 +26,9 @@ public class MainActivity extends ReactActivity {
     };
   }
 
+  @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+  }
+
 }

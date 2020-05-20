@@ -18,7 +18,10 @@ export default class PriceListCategoryItem extends Component {
 
     render() {
         return (
-            <TouchableOpacity onPress={() => console.log(this.props)}>
+            <TouchableOpacity 
+            onPress={() => 
+                    this.props.navigation.navigate('PriceListItens', 
+                                                   {...this.props})}>
                 <View style={styles.categoryItem}>
                     <Text style={ styles.categoryItemName }>{this.props.name}</Text>
                     <Icon style={ styles.categoryItemNameIcon } name='angle-right' />

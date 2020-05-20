@@ -13,7 +13,10 @@ export default class Store extends Component {
 
     render() {
         return (
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('PriceList', {categories: this.props.categories})}>
+            <TouchableOpacity onPress={
+                () => this.props.navigation.navigate('PriceList', 
+                        {categories: this.props.categories, 
+                        navigation: this.props.navigation})}>
                 <View style={styles.storeListItem}>
                     <View style={styles.storeImage}>
                         <Icon name='image'

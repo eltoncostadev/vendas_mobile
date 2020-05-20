@@ -7,6 +7,9 @@ import Home from './screens/Home'
 import Menu from './screens/Menu'
 import PriceList from './components/PriceList'
 import StoreList from './components/StoreList'
+import PriceListItens from './components/PriceListItens'
+import PriceListCategories from './components/PriceListCategories'
+import PriceListCategoryItem from './components/PriceListCategoryItem'
 
 import { singleListMode } from './common'
 
@@ -54,6 +57,38 @@ const MenuRoutes = {
         navigationOptions: {
             drawerLabel: () => null,
             title: 'Lista de Preços'
+        }
+    },
+    PriceListItens: {
+        name: 'Itens Lista de Preços',
+        screen: props => <PriceListItens title='Itens Lista de Preços' {...props} />,
+        navigationOptions: {
+            drawerLabel: () => null,
+            title: 'Itens Lista de Preços'
+        }
+    },
+    PriceListCategoryItem: {
+        name: 'Itens Lista de Preços',
+        screen: props => <PriceListCategoryItem title='Itens Lista de Preços' {...props} />,
+        navigationOptions: {
+            drawerLabel: () => null,
+            title: 'Itens Lista de Preços'
+        }
+    },
+    PriceListCategories: {
+        name: 'Itens Lista de Preços',
+        screen: props => <PriceListCategories title='Itens Lista de Preços' {...props} />,
+        navigationOptions: {
+            drawerLabel: () => null,
+            title: 'Itens Lista de Preços'
+        }
+    },
+    StoreList: {
+        name: 'Itens Lista de Preços',
+        screen: props => <StoreList title='Itens Lista de Preços' {...props} />,
+        navigationOptions: {
+            drawerLabel: () => null,
+            title: 'Itens Lista de Preços'
         }
     },
 }
