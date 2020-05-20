@@ -3,42 +3,27 @@ import {
     View,
     Text,
     StyleSheet,
-    TouchableOpacity
+    TouchableOpacity,
+    ImageBackground,
+    BackHandler,
+    FlatList
 } from 'react-native'
+
 import Icon from 'react-native-vector-icons/FontAwesome'
 
+import PriceListCategoryItem from './PriceListCategoryItem'
 import commonStyles from '../commonStyles'
 
-export default class Store extends Component {
+export default class PriceListCategories extends Component {
 
     render() {
         return (
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('PriceList', {categories: this.props.categories})}>
-                <View style={styles.storeListItem}>
-                    <View style={styles.storeImage}>
-                        <Icon name='image'
-                            style={{
-                                fontSize: 30,
-                                color: '#D11B00'
-                            }} />
-                        <Text style={{ color: '#D11B00' }}> Sem imagem </Text>
-                    </View>
-                    <View style={styles.storeDescription}>
-                        <Text style={styles.storeListItemName}>
-                            {this.props.Name}
-                        </Text>
-                        <Text style={styles.storeListItemType}>
-                            {this.props.Type}
-                        </Text>
-                        <Text style={styles.storeListItemDelivery}>
-                            {this.props.Delivery}
-                        </Text>
-                        <Text style={styles.storeListItemDeliveryTime}>
-                            <Icon name='history' style={{ fontSize: 20 }} /> {this.props.DeliveryTime}
-                        </Text>
-                    </View>
-                </View>
-            </TouchableOpacity>
+            <View>
+                <FlatList data={this.props.categories}
+                    keyExtractor={item => `${item.id}`}
+                    renderItem={({ item }) =>
+                        <PriceListCategoryItem {...item} />} />
+            </View>
         )
     }
 }

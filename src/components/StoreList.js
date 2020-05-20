@@ -28,41 +28,70 @@ export default class StoreList extends Component {
 
     state = {
         stores: [
-        {
-            id: Math.random(),
-            Name: 'Sacolão Jd. Europa',
-            Type: 'Hortifruti',
-            Delivery: 'Entrega grátis acima de R$ 50,00',
-            DeliveryTime: 'Até 1 dia útil!'
-        },
-        {
-            id: Math.random(),
-            Name: 'Rende Mais',
-            Type: 'Hortifruti',
-            Delivery: 'Entrega grátis acima de R$ 40,00',
-            DeliveryTime: 'Até 1 dia útil!'
-        },
-        {
-            id: Math.random(),
-            Name: 'Sacolão da Família',
-            Type: 'Hortifruti',
-            Delivery: 'Promoção: Frete Grátis',
-            DeliveryTime: 'Até 1 dia útil!'
-        },
-        {
-            id: Math.random(),
-            Name: 'Sacolão do Povo',
-            Type: 'Hortifruti',
-            Delivery: 'Entrega grátis acima de R$ 40,00',
-            DeliveryTime: 'Até 1 dia útil!'
-        },
-        {
-            id: Math.random(),
-            Name: 'Preço Bom',
-            Type: 'Hortifruti',
-            Delivery: 'Entrega grátis acima de R$ 40,00',
-            DeliveryTime: 'Até 1 dia útil!'
-        },
+            {
+                id: Math.random(),
+                Name: 'Sacolão Jd. Europa',
+                Type: 'Hortifruti',
+                Delivery: 'Entrega grátis acima de R$ 50,00',
+                DeliveryTime: 'Até 1 dia útil!',
+                categories: [
+                    { id: Math.random(), name: 'Frutas' },
+                    { id: Math.random(), name: 'Legumes' },
+                    { id: Math.random(), name: 'Verduras' },
+                    { id: Math.random(), name: 'Outros' }
+                ]
+            },
+            {
+                id: Math.random(),
+                Name: 'Rende Mais',
+                Type: 'Hortifruti',
+                Delivery: 'Entrega grátis acima de R$ 40,00',
+                DeliveryTime: 'Até 1 dia útil!',
+                categories: [
+                    { id: Math.random(), name: 'Frutas' },
+                    { id: Math.random(), name: 'Legumes' },
+                    { id: Math.random(), name: 'Verduras' },
+                    { id: Math.random(), name: 'Outros' }
+                ]
+            },
+            {
+                id: Math.random(),
+                Name: 'Sacolão da Família',
+                Type: 'Hortifruti',
+                Delivery: 'Promoção: Frete Grátis',
+                DeliveryTime: 'Até 1 dia útil!',
+                categories: [
+                    { id: Math.random(), name: 'Frutas' },
+                    { id: Math.random(), name: 'Legumes' },
+                    { id: Math.random(), name: 'Verduras' },
+                    { id: Math.random(), name: 'Outros' }
+                ]
+            },
+            {
+                id: Math.random(),
+                Name: 'Sacolão do Povo',
+                Type: 'Hortifruti',
+                Delivery: 'Entrega grátis acima de R$ 40,00',
+                DeliveryTime: 'Até 1 dia útil!',
+                categories: [
+                    { id: Math.random(), name: 'Frutas' },
+                    { id: Math.random(), name: 'Legumes' },
+                    { id: Math.random(), name: 'Verduras' },
+                    { id: Math.random(), name: 'Outros' }
+                ]
+            },
+            {
+                id: Math.random(),
+                Name: 'Preço Bom',
+                Type: 'Hortifruti',
+                Delivery: 'Entrega grátis acima de R$ 40,00',
+                DeliveryTime: 'Até 1 dia útil!',
+                categories: [
+                    { id: Math.random(), name: 'Frutas' },
+                    { id: Math.random(), name: 'Legumes' },
+                    { id: Math.random(), name: 'Verduras' }
+                ]
+            },
         ]
     }
 
@@ -106,8 +135,8 @@ export default class StoreList extends Component {
                         <View style={styles.storeListContainer}>
                             <FlatList data={this.state.stores}
                                 keyExtractor={item => `${item.id}`}
-                                renderItem={({ item }) => 
-                                    <Store {...item} {...this.props} />}></FlatList>
+                                renderItem={({ item }) =>
+                                    <Store {...item} {...this.props} />} />
                         </View>
                     </View>
                 </ImageBackground>

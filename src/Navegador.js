@@ -5,7 +5,7 @@ import {createDrawerNavigator } from 'react-navigation-drawer'
 import Login from './screens/Login'
 import Home from './screens/Home'
 import Menu from './screens/Menu'
-import ListPrice from './components/ListPrice'
+import PriceList from './components/PriceList'
 import StoreList from './components/StoreList'
 
 import { singleListMode } from './common'
@@ -39,7 +39,7 @@ const MenuRoutes = {
         name: 'Lista de Preços',
         screen: props => {
             if(singleListMode){ 
-              return  <ListPrice title='Lista de Preços' {...props} />
+              return  <PriceList title='Lista de Preços' {...props} />
             }else{
               return  <StoreList title='Lista de Preços' {...props} />
             }
@@ -48,9 +48,9 @@ const MenuRoutes = {
             title: 'Lista de Preços'
         }
     },
-    ListPriceOther: {
+    PriceList: {
         name: 'Lista de Preços',
-        screen: props => <ListPrice title='Lista de Preços' {...props} />,
+        screen: props => <PriceList title='Lista de Preços' {...props} />,
         navigationOptions: {
             drawerLabel: () => null,
             title: 'Lista de Preços'

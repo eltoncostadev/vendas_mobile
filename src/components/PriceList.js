@@ -14,20 +14,23 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import backgroundImage from '../../assets/imgs/BackGroundApp.png'
 import commonStyles from '../commonStyles'
 
-export default class Store extends Component {
+import PriceListCategories from './PriceListCategories'
+
+const initialState = {
+    categories: []
+}
+
+export default class PriceList extends Component {
+
+    state = {
+        ...initialState
+    }
 
     constructor(props) {
         super(props)
-        this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
-    }
 
-    handleBackButtonClick() {
-        this.props.navigation.goBack(null);
-        return true;
-    }
+        state = this.props.navigation.state.params.categories
 
-    componentDidMount() {
-        BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
     }
 
     render() {
@@ -36,7 +39,7 @@ export default class Store extends Component {
                 <ImageBackground source={backgroundImage}
                     style={{ width: '100%', height: '100%' }}>
                     <View style={styles.header}>
-                        <TouchableOpacity onPress={() => this.handleBackButtonClick()}>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('ListPrice')}>
                             <Icon name='arrow-left'
                                 style={styles.menuIcon} />
                         </TouchableOpacity>
@@ -46,6 +49,7 @@ export default class Store extends Component {
                     </View>
                     <View style={styles.storeList}>
                         <View style={styles.storeListContainer}>
+                            <PriceListCategories categories={state}></PriceListCategories>
                         </View>
                     </View>
                 </ImageBackground>
