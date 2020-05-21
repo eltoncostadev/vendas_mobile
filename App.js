@@ -13,6 +13,7 @@ import Home from './src/screens/Home'
 import Menu from './src/screens/Menu'
 import StoreList from './src/components/StoreList'
 import PriceList from './src/components/PriceList'
+import PriceListCategories from './src/components/PriceListCategories'
 import PriceListItens from './src/components/PriceListItens'
 
 const menuConfig = {
@@ -50,7 +51,9 @@ const App = createStackNavigator({
     Home: { screen: MenuNavigator, navigationOptions: {headerShown: false} }, 
     StoreList: { screen: StoreList, navigationOptions: {headerShown: false} }, 
     PriceList: { screen: PriceList, navigationOptions: {headerShown: false} }, 
+    PriceListCategories: {screen: PriceListCategories, navigationOptions: {headerShown: false} }, 
     PriceListItens: {screen: PriceListItens, navigationOptions: {headerShown: false} }, 
+
   },
   {
     initialRouteName: 'Login',

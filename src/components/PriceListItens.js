@@ -12,41 +12,91 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome'
 
 import backgroundImage from '../../assets/imgs/BackGroundApp.png'
+import imgBanana from '../../assets/imgs/Banana.png'
+import imgBananaTerra from '../../assets/imgs/BananaTerra.png'
+import imgMaca from '../../assets/imgs/Maca.png'
+import imgPera from '../../assets/imgs/Pera.png'
 import commonStyles from '../commonStyles'
+
+import PriceListItem from './PriceListItem'
+
+const initialState = {
+    fruits: []
+}
 
 export default class PriceListItens extends Component {
 
     constructor(props) {
         super(props)
-
-        state = this.props.navigation.state.params.categories
         this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
     }
-
+    componentDidMount() {
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
+    }
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
+    }
     handleBackButtonClick() {
-
-       console.log('Retornando para PriceList')
-        if (this.props.navigation && this.props.navigation.goBack) {
-            this.props.navigation.navigate('PriceList')
-            return true
-        } else {
-            console.log('Vazio!')
-            return false
-        }
+        this.props.navigation.navigate('PriceList');
+        return true
     }
 
-    componentDidMount() {
-        BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick)
-        console.log(this.props.navigation.state)
+    state = {
+        ...initialState
+    }
+
+    state = {
+        fruits: [
+            {
+                id: Math.random(),
+                itemName: 'Banana Maça',
+                itemPrice: 'R$ 4,50',
+                itemImage: imgBanana
+            },
+            {
+                id: Math.random(),
+                itemName: 'Banana da Terra',
+                itemPrice: 'R$ 4,50',
+                itemImage: imgBananaTerra
+            },
+            {
+                id: Math.random(),
+                itemName: 'Maça Argentina',
+                itemPrice: 'R$ 4,50',
+                itemImage: imgMaca
+            },
+            {
+                id: Math.random(),
+                itemName: 'Pera Williams',
+                itemPrice: 'R$ 4,50',
+                itemImage: imgPera
+            },
+            {
+                id: Math.random(),
+                itemName: 'Uva',
+                itemPrice: 'R$ 4,50',
+                itemImage: imgBanana
+            },
+            {
+                id: Math.random(),
+                itemName: 'Banana Maça',
+                itemPrice: 'R$ 4,50',
+                itemImage: imgBanana
+            },
+
+        ]
     }
 
     render() {
+
+        const { navigate } = this.props.navigation
+
         return (
             <View>
                 <ImageBackground source={backgroundImage}
                     style={{ width: '100%', height: '100%' }}>
                     <View style={styles.header}>
-                        <TouchableOpacity onPress={() => this.handleBackButtonClick()}>
+                        <TouchableOpacity onPress={() => navigate('PriceList')}>
                             <Icon name='arrow-left'
                                 style={styles.menuIcon} />
                         </TouchableOpacity>
@@ -56,12 +106,10 @@ export default class PriceListItens extends Component {
                     </View>
                     <View style={styles.storeList}>
                         <View style={styles.storeListContainer}>
-                            <TouchableOpacity>
-                                <View style={styles.categoryItem}>
-                                    <Text style={styles.categoryItemName}>Banana Prata</Text>
-                                    <Icon style={styles.categoryItemNameIcon} name='angle-right' />
-                                </View>
-                            </TouchableOpacity>
+                        <FlatList data={this.state.fruits}
+                            keyExtractor={item => `${item.id}`}
+                            renderItem={({ item }) =>
+                                <PriceListItem {...item} />} />
                         </View>
                     </View>
                 </ImageBackground>
@@ -101,15 +149,20 @@ const styles = StyleSheet.create({
         borderRadius: 15
     },
     categoryItemName: {
-        fontSize: 50,
+        fontSize: 30,
         color: '#D11B00',
         fontFamily: commonStyles.fontFamilyList.Lato,
-        marginLeft: 15
+    },
+    categoryItemPrice: {
+        fontSize: 25,
+        color: '#D11B00',
+        fontFamily: commonStyles.fontFamilyList.Lato,
+        marginLeft: 10
     },
     categoryItemNameIcon: {
         fontSize: 50,
         color: '#D11B00',
-        marginRight: 15
+        paddingRight: 30
     }
 })
 
