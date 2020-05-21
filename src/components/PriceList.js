@@ -17,8 +17,7 @@ import commonStyles from '../commonStyles'
 import PriceListCategories from './PriceListCategories'
 
 const initialState = {
-    categories: [],
-    navigate: null
+    categories: []
 }
 
 export default class PriceList extends Component {
@@ -26,29 +25,16 @@ export default class PriceList extends Component {
     constructor(props) {
         super(props)
         state = this.props.navigation.state.params.categories
-        //Binding handleBackButtonClick function with this
         this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
       }
       componentDidMount() {
-        // This is the first method in the activity lifecycle
-        // Addding Event Listener for the BackPress 
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
       }
       componentWillUnmount() {
-        // This is the Last method in the activity lifecycle
-        // Removing Event Listener for the BackPress 
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
       }
       handleBackButtonClick() {
-        // Registered function to handle the Back Press
-        // We are generating an alert to show the back button pressed
-        //alert('You clicked back. Now Screen will move to ThirdPage');
-        // We can move to any screen. If we want
-        //this.props.navigation.navigate('StoreList');
-        this.state.navigate('StoreList')
-        // Returning true means we have handled the backpress
-        // Returning false means we haven't handled the backpress
-        //return true;
+        this.props.navigation.navigate('StoreList')
         return true
       }
 
@@ -59,8 +45,6 @@ export default class PriceList extends Component {
     render() {
 
         const { navigate } = this.props.navigation
-
-        this.setState(this.state.navigate, () => navigate)
 
         return (
             <View>

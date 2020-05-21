@@ -97,27 +97,16 @@ export default class StoreList extends Component {
 
     constructor(props) {
         super(props)
-        //Binding handleBackButtonClick function with this
         this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
       }
       componentDidMount() {
-        // This is the first method in the activity lifecycle
-        // Addding Event Listener for the BackPress 
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
       }
       componentWillUnmount() {
-        // This is the Last method in the activity lifecycle
-        // Removing Event Listener for the BackPress 
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
       }
       handleBackButtonClick() {
-        // Registered function to handle the Back Press
-        // We are generating an alert to show the back button pressed
-        //alert('You clicked back. Now Screen will move to ThirdPage');
-        // We can move to any screen. If we want
         this.props.navigation.navigate('Home');
-        // Returning true means we have handled the backpress
-        // Returning false means we haven't handled the backpress
         return true
       }
 

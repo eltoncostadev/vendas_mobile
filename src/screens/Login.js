@@ -27,6 +27,9 @@ export default class Login extends Component {
     }
 
     render() {
+
+        const { navigate } = this.props.navigation
+
         return (
                 <ImageBackground source={backgroundImage} style={{ width: '100%', height: '100%' }}>
 
@@ -63,7 +66,7 @@ export default class Login extends Component {
                         >
                             <View style={styles.button}>
                                 <Text
-                                    onPress={() => this.props.navigation.navigate('Home')}
+                                    onPress={() => navigate('Home')}
                                     style={{ color: '#ffffe6' }}>
                                     {this.state.stageNew ? 'Cadastrar' : 'Entrar'}
                                 </Text>

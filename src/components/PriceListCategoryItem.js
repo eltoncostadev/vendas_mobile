@@ -16,12 +16,29 @@ import commonStyles from '../commonStyles'
 
 export default class PriceListCategoryItem extends Component {
 
+    constructor(props) {
+        super(props)
+        this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
+      }
+      componentDidMount() {
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
+      }
+      componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
+      }
+      handleBackButtonClick() {
+        this.props.navigation.navigate('PriceList');
+        return true
+      }
+
     render() {
+
+        const { navigate } = this.props.navigation
+
         return (
             <TouchableOpacity 
-            onPress={() => 
-                    this.props.navigation.navigate('PriceListItens', 
-                                                   {...this.props})}>
+            onPress={() => navigate('PriceListItens', 
+                           {...this.props})}>
                 <View style={styles.categoryItem}>
                     <Text style={ styles.categoryItemName }>{this.props.name}</Text>
                     <Icon style={ styles.categoryItemNameIcon } name='angle-right' />

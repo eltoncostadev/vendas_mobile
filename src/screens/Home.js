@@ -12,6 +12,8 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 
 import InformationList from '../components/InformationList'
 
+import App from '../../App'
+
 import backgroundImage from '../../assets/imgs/BackGroundApp.png'
 import commonStyles from '../commonStyles'
 
@@ -138,7 +140,7 @@ const styles = StyleSheet.create({
     },
     mainInfo: {
         backgroundColor: '#EDD3AA',
-        height: 190,
+        height: 220,
         borderRadius: 20,
         marginRight: 10,
         marginLeft: 10,
@@ -163,6 +165,6 @@ const styles = StyleSheet.create({
     },
     tips: {
         flex: 4,
-        marginTop: 25
+        marginTop: 80
     }
 })

@@ -40,10 +40,6 @@ export default class PriceListItens extends Component {
         console.log(this.props.navigation.state)
     }
 
-    // componentWillUnmount() {
-    //     BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick)
-    // }
-
     render() {
         return (
             <View>
