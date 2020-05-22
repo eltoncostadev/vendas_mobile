@@ -17,6 +17,7 @@ import PriceListCategories from './src/components/PriceListCategories'
 import PriceListItem from './src/components/PriceListItem'
 import PriceListItens from './src/components/PriceListItens'
 import PriceListItemDetails from './src/components/PriceListItemDetails'
+import BasketListItens from './src/components/BasketListItens'
 
 const menuConfig = {
   initialRouteName: 'Home',
@@ -57,6 +58,7 @@ const App = createStackNavigator({
     PriceListItens: {screen: PriceListItens, navigationOptions: {headerShown: false} }, 
     PriceListItem: {screen: PriceListItem, navigationOptions: {headerShown: false} }, 
     PriceListItemDetails: {screen: PriceListItemDetails, navigationOptions: {headerShown: false} }, 
+    BasketListItens: {screen: BasketListItens, navigationOptions: {headerShown: false} }, 
 
   },
   {

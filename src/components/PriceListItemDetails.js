@@ -17,34 +17,42 @@ import {
 
 import Icon from 'react-native-vector-icons/FontAwesome'
 
+import BasketItensView from './BasketItensView'
 import backgroundImage from '../../assets/imgs/BackGroundApp.png'
 import commonStyles from '../commonStyles'
 
-const { State: TextInputState } = TextInput;
+const { State: TextInputState } = TextInput
+
+const initialState = {
+    shift: new Animated.Value(0),
+    ItemDetail: {},
+    basketItens: {},
+    itemAmount: 0,
+    itemPrice: 0,
+    basketItens: null
+}
 
 export default class PriceListItemDetails extends Component {
 
-    constructor(props) {
-        super(props)
-        state.ItemDetail = { ...this.props.navigation.state.params.ItemDetail }
-        //
-        this.handleBackButtonClick = this.handleBackButtonClick.bind(this)
+    state = {
+        ...initialState
     }
 
-    state = {
-        shift: new Animated.Value(0),
-        ItemDetail : {
-            itemName : '',
-            itemPrice : 0
-        },
-        itemAmount : 0
-    };
+    constructor(props) {
+        super(props)
+        this.state.ItemDetail = { ...this.props.navigation.state.params.ItemDetail }
+        //
+        this.handleBackButtonClick = this.handleBackButtonClick.bind(this)
+        //
+        this.BasketItemElement = React.createRef()
+    }
 
     componentDidMount() {
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick)
         //
         this.keyboardDidShowSub = Keyboard.addListener('keyboardDidShow', this.handleKeyboardDidShow)
         this.keyboardDidHideSub = Keyboard.addListener('keyboardDidHide', this.handleKeyboardDidHide)
+        //
     }
 
     componentWillUnmount() {
@@ -93,44 +101,78 @@ export default class PriceListItemDetails extends Component {
     }
 
     atualizaValor = () => {
-        
+        console.log('...atualizaValor...')
+        console.log(this.state.itemAmount)
+        var itemPrice = { ...this.itemPrice }
+        itemPrice = this.state.ItemDetail.itemPrice * this.state.itemAmount
+        this.setState({ itemPrice })
+    }
+
+    currencyFormat(num) {
+        return 'R$ ' + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, 'R$ 0,')
+    }
+
+    handleBasktItemChange = (itemDetail) =>{
+        this.BasketItemElement.current.changeQuantidade(1, itemDetail)
+    }
+
+    addItemToOrder = () => {
+
+        if (this.state.itemAmount === 0) {
+            alert('Nenhum item selecionado!')
+            return false
+        }
+
+        console.log('-------------------------------')
+        //console.log(this.state.ItemDetail.itemName)
+        console.log('-------------------------------')
+
+        var itemDetail = {
+            ItemDetail : {
+                itemName: this.state.ItemDetail.itemName,
+                itemPrice: this.state.ItemDetail.itemPrice,
+                itemImage: this.state.ItemDetail.itemImage
+            },
+            itemAmount : this.state.itemAmount,
+            itemPrice : this.state.itemPrice
+        }
+
+        this.setState({ basketItens : itemDetail })
+        console.log('-------------------------------')
+        //console.log(itemDetail)
+        //console.log(this.state.basketItens)
+        console.log('-------------------------------')
+
+        this.handleBasktItemChange(itemDetail)
+
+        alert('Item incluído com sucesso!')
+        //this.handleBackButtonClick()
     }
 
     render() {
         const { shift } = this.state
         const { navigate } = this.props.navigation
-        
+
         return (
             <Animated.View style={[styles.container, { transform: [{ translateY: shift }] }]}>
                 <ImageBackground source={backgroundImage}
                     style={{ width: '100%', height: '100%' }}>
-
                     <View style={styles.header}>
                         <TouchableOpacity onPress={() => navigate('PriceListItens')}>
                             <Icon name='arrow-left'
                                 style={styles.menuIcon} />
                         </TouchableOpacity>
                         <Text style={styles.title}>
-                            {state.ItemDetail.itemName}
+                            {this.state.ItemDetail.itemName}
                         </Text>
+                            <BasketItensView {...this.props} ref={this.BasketItemElement} />
                     </View>
                     <View style={styles.storeList}>
                         <View style={styles.storeListContainer}>
                             <View style={styles.imageContainer}>
                                 <Image
-                                    source={state.ItemDetail.itemImage}
+                                    source={this.state.ItemDetail.itemImage}
                                     style={styles.imageDetail} />
-                            </View>
-                            <View style={styles.itemDescContainer}>
-                                <Text style={{
-                                    textAlign: 'center',
-                                    color: '#D11B00',
-                                    fontSize: 20,
-                                    fontFamily: commonStyles.fontFamilyList.Lato,
-                                    marginLeft: 5,
-                                    marginRight: 5,
-                                }}>
-                                    O peso dos produtos pode variar em algumas gramas, e são cobrados pelo peso exato na balança, no momento da embalagem.</Text>
                             </View>
                             <View style={styles.itemPriceContainer}>
                                 <View style={{
@@ -139,11 +181,12 @@ export default class PriceListItemDetails extends Component {
                                     width: 360,
                                     marginTop: 5,
                                     marginRight: 15,
-                                    marginLeft: 15
+                                    marginLeft: 15,
+                                    marginBottom: -10
 
                                 }}>
                                     <Text style={{ fontSize: 40, color: '#D11B00' }}>KG</Text>
-                                    <Text style={{ fontSize: 40, color: '#D11B00' }}>{state.ItemDetail.itemPrice}</Text>
+                                    <Text style={{ fontSize: 40, color: '#D11B00' }}>{this.currencyFormat(this.state.ItemDetail.itemPrice)}</Text>
                                 </View>
                                 <TextInput style={{ fontSize: 15, color: '#D11B00', marginLeft: 15 }} placeholder='Observações' />
                             </View>
@@ -159,43 +202,86 @@ export default class PriceListItemDetails extends Component {
 
                                 }}>
                                     <TouchableWithoutFeedback onPress={
-                                            () =>this.setState({itemAmount: this.state.itemAmount === 0 ? 0: this.state.itemAmount - 1 }) }>
-                                        <Icon style={{ fontSize: 80, color: '#D11B00'  }} name='minus-circle' />
+                                        () => this.setState({
+                                            itemAmount: this.state.itemAmount === 0 ? 0 : this.state.itemAmount - 1
+                                        },
+                                            this.atualizaValor)}>
+                                        <Icon style={{ fontSize: 80, color: '#D11B00' }} name='minus-circle' />
                                     </TouchableWithoutFeedback>
-                                    <View style={{ marginTop: 25, 
-                                                   borderBottomWidth: 2, 
-                                                   borderBottomColor: '#D11B00',
-                                                   height: 40, 
-                                                   width: 200, 
-                                                   flexDirection: 'row', 
-                                                   alignContent: 'center', 
-                                                   justifyContent:'center' }}>
-                                        <Text style={{ fontSize: 30, color: '#D11B00'  }}>
-                                           {this.state.itemAmount}
+                                    <View style={{
+                                        marginTop: 25,
+                                        borderBottomWidth: 2,
+                                        borderBottomColor: '#D11B00',
+                                        height: 40,
+                                        width: 200,
+                                        flexDirection: 'row',
+                                        alignContent: 'center',
+                                        justifyContent: 'center'
+                                    }}>
+                                        <Text style={{ fontSize: 30, color: '#D11B00' }}>
+                                            {this.state.itemAmount}
                                         </Text>
                                     </View>
-                                    <TouchableWithoutFeedback onPress={
-                                            ()=> this.setState({itemAmount: this.state.itemAmount + 1}, this.atualizaValor()) }>
-                                        <Icon style={{ fontSize: 80, color: '#D11B00'  }} name='plus-circle' /> 
+                                    <TouchableWithoutFeedback onPress={() => this.setState({ itemAmount: this.state.itemAmount + 1 }, this.atualizaValor)}>
+                                        <Icon style={{ fontSize: 80, color: '#D11B00' }} name='plus-circle' />
                                     </TouchableWithoutFeedback>
                                 </View>
-                                <View>
-                                    <Text>
+                                <View style={{
+                                    flexDirection: 'row',
+                                    justifyContent: 'space-between',
+                                    alignContent: 'center',
+                                    height: 40,
+                                    width: 390,
+                                    paddingRight: 20,
+                                    paddingLeft: 20
+                                }}>
+                                    <Text style={{
+                                        fontFamily: commonStyles.fontFamilyList.Lato,
+                                        color: '#D11B00',
+                                        fontSize: 30
+                                    }}>
                                         Total
-                                        </Text>
-                                    <Text>
-                                        R$ {state.ItemDetail.itemPrice}
+                                    </Text>
+                                    <Text style={{
+                                        fontFamily: commonStyles.fontFamilyList.Lato,
+                                        color: '#D11B00',
+                                        fontSize: 30
+                                    }}>
+                                        {this.currencyFormat(this.state.itemPrice)}
                                     </Text>
                                 </View>
                             </View>
+                            <View style={styles.itemDescContainer}>
+                                <Text style={{
+                                    textAlign: 'center',
+                                    color: '#D11B00',
+                                    fontSize: 15,
+                                    fontFamily: commonStyles.fontFamilyList.Lato,
+                                    marginLeft: 10,
+                                    marginRight: 10,
+                                }}>
+                                    O peso dos produtos pode variar em algumas gramas, e são cobrados pelo peso exato na balança, no momento da embalagem.</Text>
+                            </View>
+                            <TouchableWithoutFeedback onPress={this.addItemToOrder}>
+                                <View style={styles.itemAddOrder}>
+                                    <Text style={{
+                                        textAlign: 'center',
+                                        color: '#006600',
+                                        fontSize: 40,
+                                        fontFamily: commonStyles.fontFamilyList.LeckerliOneRegular,
+                                        marginLeft: 10,
+                                        marginRight: 10,
+                                    }} >
+                                        Incluir
+                                    </Text>
+                                </View>
+                            </TouchableWithoutFeedback>
                         </View>
                     </View>
-
                 </ImageBackground>
             </Animated.View>
-        );
+        )
     }
-
 }
 
 const styles = StyleSheet.create({
@@ -213,13 +299,13 @@ const styles = StyleSheet.create({
     menuIcon: {
         color: '#FFFFFF',
         fontSize: 30,
-        marginLeft: 20
+        marginLeft: 15
     },
     title: {
         fontFamily: commonStyles.fontFamilyList.LeckerliOneRegular,
         color: '#FFFFFF',
-        fontSize: 40,
-        marginRight: 20
+        fontSize: 35,
+        marginRight: 15
     },
     storeList: {
         flex: 9
@@ -246,7 +332,7 @@ const styles = StyleSheet.create({
         marginTop: 10,
         backgroundColor: '#FCD75D',
         borderRadius: 15,
-        height: 110,
+        height: 60,
         width: 390,
         flexDirection: 'row',
         alignItems: 'center',
@@ -255,7 +341,7 @@ const styles = StyleSheet.create({
         marginTop: 10,
         backgroundColor: '#FFFFFF',
         borderRadius: 15,
-        height: 110,
+        height: 90,
         width: 390,
     },
     itemPriceControl: {
@@ -263,6 +349,13 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFFFFF',
         borderRadius: 15,
         height: 150,
+        width: 390,
+    },
+    itemAddOrder: {
+        marginTop: 10,
+        backgroundColor: '#FCD75D',
+        borderRadius: 30,
+        height: 60,
         width: 390,
     },
 })

@@ -8,7 +8,6 @@ import {
     ImageBackground
 } from 'react-native'
 
-import Icon from 'react-native-vector-icons/FontAwesome'
 import { AsyncStorage } from 'react-native'
 
 import InputIcon from '../components/InputIcon'

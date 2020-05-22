@@ -10,7 +10,7 @@ export default class Menu extends Component {
         email: '',
         senha: '',
         confirmacao: '',
-        nome: 'Elton',
+        nome: 'Maria',
         singleListMode: true
     }
 

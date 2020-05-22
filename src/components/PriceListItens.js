@@ -28,6 +28,10 @@ const initialState = {
 
 export default class PriceListItens extends Component {
 
+    state = {
+        ...initialState
+    }
+
     constructor(props) {
         super(props)
         this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
@@ -44,14 +48,10 @@ export default class PriceListItens extends Component {
     }
 
     state = {
-        ...initialState
-    }
-
-    state = {
         fruits: [
             {
                 id: Math.random(),
-                itemName: 'Banana Maça',
+                itemName: 'Banana Maçã',
                 itemPrice: 4.50,
                 itemImage: imgBanana
             },
@@ -63,7 +63,7 @@ export default class PriceListItens extends Component {
             },
             {
                 id: Math.random(),
-                itemName: 'Maça Argentina',
+                itemName: 'Maçã Argentina',
                 itemPrice: 12.50,
                 itemImage: imgMaca
             },
