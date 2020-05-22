@@ -16,8 +16,14 @@ import commonStyles from '../commonStyles'
 export default class PriceListItem extends Component {
 
     render() {
+
+        const { navigate } = this.props.navigation
+
         return (
-            <TouchableOpacity>
+            <TouchableOpacity 
+                onPress={() => navigate('PriceListItemDetails',
+                                        {ItemDetail : this.props})
+                }>
                 <View style={styles.categoryItem}>
                     <View style={{
                         backgroundColor: "#FFFFFF",
@@ -32,7 +38,7 @@ export default class PriceListItem extends Component {
                         <Image source={this.props.itemImage}
                             style={
                                 {
-                                    height: 55,
+                                    height: 80,
                                     width: 85,
                                 }
                             } />

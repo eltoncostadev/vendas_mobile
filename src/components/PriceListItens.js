@@ -16,6 +16,8 @@ import imgBanana from '../../assets/imgs/Banana.png'
 import imgBananaTerra from '../../assets/imgs/BananaTerra.png'
 import imgMaca from '../../assets/imgs/Maca.png'
 import imgPera from '../../assets/imgs/Pera.png'
+import imgUva from '../../assets/imgs/Uva.png'
+import imgAbacaxi from '../../assets/imgs/Abacaxi.png'
 import commonStyles from '../commonStyles'
 
 import PriceListItem from './PriceListItem'
@@ -50,39 +52,39 @@ export default class PriceListItens extends Component {
             {
                 id: Math.random(),
                 itemName: 'Banana Maça',
-                itemPrice: 'R$ 4,50',
+                itemPrice: 4.50,
                 itemImage: imgBanana
             },
             {
                 id: Math.random(),
                 itemName: 'Banana da Terra',
-                itemPrice: 'R$ 4,50',
-                itemImage: imgBananaTerra
+                itemPrice: 4.50,
+                itemImage: imgBananaTerra,
             },
             {
                 id: Math.random(),
                 itemName: 'Maça Argentina',
-                itemPrice: 'R$ 4,50',
+                itemPrice: 12.50,
                 itemImage: imgMaca
             },
             {
                 id: Math.random(),
                 itemName: 'Pera Williams',
-                itemPrice: 'R$ 4,50',
+                itemPrice: 3.50,
                 itemImage: imgPera
             },
             {
                 id: Math.random(),
-                itemName: 'Uva',
-                itemPrice: 'R$ 4,50',
-                itemImage: imgBanana
+                itemName: 'Uva Crimson',
+                itemPrice: 14.50,
+                itemImage: imgUva
             },
             {
                 id: Math.random(),
-                itemName: 'Banana Maça',
-                itemPrice: 'R$ 4,50',
-                itemImage: imgBanana
-            },
+                itemName: 'Abacaxi',
+                itemPrice: 4.60,
+                itemImage: imgAbacaxi
+            }
 
         ]
     }
@@ -109,7 +111,7 @@ export default class PriceListItens extends Component {
                         <FlatList data={this.state.fruits}
                             keyExtractor={item => `${item.id}`}
                             renderItem={({ item }) =>
-                                <PriceListItem {...item} />} />
+                                <PriceListItem {...item} {...this.props}/>} />
                         </View>
                     </View>
                 </ImageBackground>
