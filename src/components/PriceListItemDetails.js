@@ -20,6 +20,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import BasketItensView from './BasketItensView'
 import backgroundImage from '../../assets/imgs/BackGroundApp.png'
 import commonStyles from '../commonStyles'
+import { currencyFormat } from '../common'
 
 const { State: TextInputState } = TextInput
 
@@ -108,10 +109,6 @@ export default class PriceListItemDetails extends Component {
         this.setState({ itemPrice })
     }
 
-    currencyFormat(num) {
-        return 'R$ ' + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, 'R$ 0,')
-    }
-
     handleBasktItemChange = (itemDetail) =>{
         this.BasketItemElement.current.changeQuantidade(1, itemDetail)
     }
@@ -146,7 +143,7 @@ export default class PriceListItemDetails extends Component {
         this.handleBasktItemChange(itemDetail)
 
         alert('Item incluído com sucesso!')
-        //this.handleBackButtonClick()
+        this.handleBackButtonClick()
     }
 
     render() {
@@ -186,7 +183,7 @@ export default class PriceListItemDetails extends Component {
 
                                 }}>
                                     <Text style={{ fontSize: 40, color: '#D11B00' }}>KG</Text>
-                                    <Text style={{ fontSize: 40, color: '#D11B00' }}>{this.currencyFormat(this.state.ItemDetail.itemPrice)}</Text>
+                                    <Text style={{ fontSize: 40, color: '#D11B00' }}>{currencyFormat(this.state.ItemDetail.itemPrice)}</Text>
                                 </View>
                                 <TextInput style={{ fontSize: 15, color: '#D11B00', marginLeft: 15 }} placeholder='Observações' />
                             </View>
@@ -247,7 +244,7 @@ export default class PriceListItemDetails extends Component {
                                         color: '#D11B00',
                                         fontSize: 30
                                     }}>
-                                        {this.currencyFormat(this.state.itemPrice)}
+                                        {currencyFormat(this.state.itemPrice)}
                                     </Text>
                                 </View>
                             </View>

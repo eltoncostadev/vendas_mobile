@@ -8,12 +8,12 @@ import {
     BackHandler,
     FlatList
 } from 'react-native'
-
 import Icon from 'react-native-vector-icons/FontAwesome'
 
 import backgroundImage from '../../assets/imgs/BackGroundApp.png'
 import commonStyles from '../commonStyles'
 
+import BasketItensView from './BasketItensView'
 import PriceListCategories from './PriceListCategories'
 
 const initialState = {
@@ -59,6 +59,7 @@ export default class PriceList extends Component {
                         <Text style={styles.title}>
                             Lista de Preço
                         </Text>
+                        <BasketItensView {...this.props}  />
                     </View>
                     <View style={styles.storeList}>
                         <View style={styles.storeListContainer}>

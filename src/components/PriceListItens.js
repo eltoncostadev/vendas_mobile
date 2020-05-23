@@ -21,6 +21,7 @@ import imgAbacaxi from '../../assets/imgs/Abacaxi.png'
 import commonStyles from '../commonStyles'
 
 import PriceListItem from './PriceListItem'
+import BasketItensView from './BasketItensView'
 
 const initialState = {
     fruits: []
@@ -34,16 +35,22 @@ export default class PriceListItens extends Component {
 
     constructor(props) {
         super(props)
-        this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
+        //
+        this.handleBackButtonClick = this.handleBackButtonClick.bind(this)
+        //
+        console.log('-------------------------------------------')
+        console.log('-------------- Price List Itens -----------')
+        console.log(this.props)
+        console.log('-------------------------------------------')
     }
     componentDidMount() {
-        BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick)
     }
     componentWillUnmount() {
-        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick)
     }
     handleBackButtonClick() {
-        this.props.navigation.navigate('PriceList');
+        this.props.navigation.navigate('PriceList')
         return true
     }
 
@@ -103,8 +110,9 @@ export default class PriceListItens extends Component {
                                 style={styles.menuIcon} />
                         </TouchableOpacity>
                         <Text style={styles.title}>
-                            Frutas
+                            {this.props.navigation.state.params.name}
                         </Text>
+                        <BasketItensView {...this.props}  />
                     </View>
                     <View style={styles.storeList}>
                         <View style={styles.storeListContainer}>

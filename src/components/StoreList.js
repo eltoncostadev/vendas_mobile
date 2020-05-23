@@ -8,12 +8,14 @@ import {
     BackHandler
 } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
+import { FlatList } from 'react-native-gesture-handler'
 
 import backgroundImage from '../../assets/imgs/BackGroundApp.png'
 import commonStyles from '../commonStyles'
 
 import Store from './Store'
-import { FlatList } from 'react-native-gesture-handler'
+import BasketItensView from './BasketItensView'
+
 
 
 const initialState = {
@@ -126,6 +128,7 @@ export default class StoreList extends Component {
                         <Text style={styles.title}>
                             Sacolões
                         </Text>
+                        <BasketItensView {...this.props}  />
                     </View>
                     <View style={styles.storeList}>
                         <View style={styles.storeListContainer}>

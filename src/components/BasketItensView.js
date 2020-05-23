@@ -19,12 +19,14 @@ export default class BasketItensView extends Component {
     componentDidMount = async () => {
         const stateString = await AsyncStorage.getItem('userBasketItens')
         const state = JSON.parse(stateString)
-        this.setState(state)
+        this.setState({basketItemAmountList : state})
+        this.setState({ basketItemAmount : this.state.basketItemAmountList.length })
         console.log('------------------------------------------')
-        console.log('---------- Item em memória ----------------')
+        console.log('---------- Item em memória ---------------')
         console.log(this.state)
+        console.log('------------- Qtd. Itens -----------------')
+        console.log(this.state.basketItemAmount) 
         console.log('------------------------------------------')
-        //this.setState(state)
     }
 
     changeQuantidade = (itemAmountQuantity, item) => {

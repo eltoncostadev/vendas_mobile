@@ -11,4 +11,7 @@ function showError(err) {
     Alert.alert('Ops! Ocorreu um Problema!', `Mensagem: ${err}`)
 }
 
-export { server, showError, singleListMode }
+function currencyFormat(num){ return 'R$ ' + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, 'R$ 0,')}
+
+
+export { server, showError, singleListMode, currencyFormat }
