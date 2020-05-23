@@ -13,38 +13,47 @@ export default class BasketItensView extends Component {
 
     state = {
         basketItemAmount: 0,
-        basketItemAmountList: []
+        basketItemList: []
     }
 
     componentDidMount = async () => {
         const stateString = await AsyncStorage.getItem('userBasketItens')
         const state = JSON.parse(stateString)
-        this.setState({basketItemAmountList : state})
-        this.setState({ basketItemAmount : this.state.basketItemAmountList.length })
+        
         console.log('------------------------------------------')
-        console.log('---------- Item em memória ---------------')
+        console.log(stateString)
+
+        this.setState({ basketItemList : state })
+        console.log('------------------------------------------')
+        console.log('---------- Item em memória ----------------')
         console.log(this.state)
-        console.log('------------- Qtd. Itens -----------------')
-        console.log(this.state.basketItemAmount) 
         console.log('------------------------------------------')
     }
 
     changeQuantidade = (itemAmountQuantity, item) => {
+
         let basketItemAmounUpdate = this.state.basketItemAmount
         basketItemAmounUpdate = basketItemAmounUpdate + itemAmountQuantity
 
-        let basketItemCopy = this.state.basketItemAmountList
-        let qtdItens = basketItemCopy.push(item)
+        const basketItemCopy = this.state.basketItemList === null ? [] : this.state.basketItemList
+        const qtdItens = basketItemCopy.push(item)
+
+        console.log(qtdItens)
+
+        this.setState({ basketItemAmount : basketItemAmounUpdate })
+        this.setState({ basketItemList : basketItemCopy })
 
         console.log('------------------------------------------')
         console.log('---------- Item incluidos ----------------')
         console.log(basketItemCopy)
+        console.log(basketItemCopy.length)
+        console.log('------------------------------------------')
+        console.log(this.state.basketItemList)
+        //console.log(this.state.basketItemList.length)
         console.log('------------------------------------------')
 
-        this.setState({ basketItemAmount: basketItemAmounUpdate })
-
         AsyncStorage.setItem('userBasketItens', 
-            JSON.stringify(this.state.basketItemAmountList))
+            JSON.stringify(this.state.basketItemList))
 
     }
 

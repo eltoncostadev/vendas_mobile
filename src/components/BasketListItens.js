@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
-import { StyleSheet, 
-        View, 
-        Text,
-        ImageBackground,
-        TouchableOpacity,
-        BackHandler
-         } from 'react-native'
+import {
+    StyleSheet,
+    View,
+    Text,
+    ImageBackground,
+    TouchableOpacity,
+    BackHandler,
+    Image
+} from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { AsyncStorage } from 'react-native'
 
@@ -13,12 +15,14 @@ import commonStyles from '../commonStyles'
 import { currencyFormat } from '../common'
 import backgroundImage from '../../assets/imgs/BackGroundApp.png'
 
+import ControlItemPrice from './ControlItemPrice'
+
 export default class BasketListItens extends Component {
 
     state = {
         basketItemAmountList: []
     }
-    
+
     constructor(props) {
         super(props)
         //
@@ -40,7 +44,7 @@ export default class BasketListItens extends Component {
         //
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick)
         //
-    } 
+    }
 
     componentWillUnmount() {
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick)
@@ -57,18 +61,62 @@ export default class BasketListItens extends Component {
         basketItemAmountList: []
     }
 
+    atualizaValor = () => {
+        // console.log('...atualizaValor...')
+        // console.log(this.state.itemAmount)
+        // var itemPrice = { ...this.itemPrice }
+        // itemPrice = this.state.ItemDetail.itemPrice * this.state.itemAmount
+        // this.setState({ itemPrice })
+    }
+
+    updateItem = (id) => {
+        console.log('------------ ID --------------------------')
+        console.log(id)
+        console.log('------------------------------------------')
+        let newbasketItemAmountList = this.state.basketItemAmountList.map(el => (
+            el.itemDetailId === id ? alert('achou') : alert('não achou')
+      ))
+      console.log('------------ Atualizar item na cesta -----')
+      console.log(newbasketItemAmountList)
+      console.log('------------------------------------------')
+      //this.setState({ basketItemAmountList : newbasketItemAmountList })
+      alert('...')
+       }
+
     render() {
 
         const { navigate } = this.props.navigation
 
         const basketItens = this.state.basketItemAmountList.map(item => (
-                <View style={{ backgroundColor: '#FFFFFF',
-                               marginTop: 10 }}>
-                    <Text> {item.ItemDetail.itemName} R$ { currencyFormat( item.ItemDetail.itemPrice ) } </Text>
-                    <Text> Quantidade  {item.itemAmount} </Text>
-                    <Text> Valor total do item: R$ { currencyFormat(item.itemPrice) } </Text>
+            <View key={item.itemDetailId} style={{
+                backgroundColor: '#FFFFFF',
+                marginTop: 10,
+                flexDirection: 'row',
+                width: 390,
+                height: 100
+            }}>
+                <Image
+                    
+                    style={{
+                        height: 50,
+                        width: 50
+                    }} />
+                <View>
+                    <Text> {item.ItemDetail.itemName} R$ {currencyFormat(item.ItemDetail.itemPrice)} </Text>
+                    <ControlItemPrice
+                        {...this.props}
+                        onClickSub={() => alert('olá')}
+                        onClickAdd={() => this.updateItem(item)}
+                        iconSize={40}
+                        controlMargin={10}
+                        controlHeight={25}
+                        controlWidth={90}
+                        displaySize={15}
+                        itemAmount={item.itemAmount}
+                    />
                 </View>
-            )
+            </View>
+        )
         )
 
         return (
