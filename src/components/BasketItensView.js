@@ -5,32 +5,45 @@ import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 
 import { AsyncStorage } from 'react-native'
 
+
+const initialState = {
+    basketItemAmount: 0,
+    basketItemList: []
+}
+
 export default class BasketItensView extends Component {
 
-    constructor(props) {
-        super(props)
-    }
-
     state = {
-        basketItemAmount: 0,
-        basketItemList: []
+        ...initialState
     }
 
     componentDidMount = async () => {
+
+        console.log('** componentDidMount **')
+
         const stateString = await AsyncStorage.getItem('userBasketItens')
         const state = JSON.parse(stateString)
         
         console.log('------------------------------------------')
         console.log(stateString)
-
         this.setState({ basketItemList : state })
-        console.log('------------------------------------------')
-        console.log('---------- Item em memória ----------------')
-        console.log(this.state)
-        console.log('------------------------------------------')
+
+        if(this.state.basketItemList && this.state.basketItemList.length > 0 ){
+            this.setState({ basketItemAmount : this.state.basketItemList.length })
+            console.log('------------------------------------------')
+            console.log('---------- Item em memória ----------------')
+            console.log(this.state)
+            console.log(this.state.basketItemList.length)
+            console.log(this.state.basketItemAmount)
+            console.log('------------------------------------------')
+        }
     }
 
-    changeQuantidade = (itemAmountQuantity, item) => {
+    componentWillMount (){
+        alert('componentWillMount')
+    }
+
+    changeQuantidade = async  (itemAmountQuantity, item) => {
 
         let basketItemAmounUpdate = this.state.basketItemAmount
         basketItemAmounUpdate = basketItemAmounUpdate + itemAmountQuantity
@@ -40,21 +53,37 @@ export default class BasketItensView extends Component {
 
         console.log(qtdItens)
 
-        this.setState({ basketItemAmount : basketItemAmounUpdate })
-        this.setState({ basketItemList : basketItemCopy })
+        //this.setState({ basketItemAmount : basketItemAmounUpdate })
+        
+        this.state = {
+            basketItemAmount : basketItemAmounUpdate,
+            basketItemList : basketItemCopy
+        }
+        console.log('---------- Novo state --------------------')
+        console.log(this.state)
+        console.log(this.state.basketItemAmount)
+        this.setState({ basketItemAmount : this.state.basketItemAmount }) 
 
-        console.log('------------------------------------------')
-        console.log('---------- Item incluidos ----------------')
-        console.log(basketItemCopy)
-        console.log(basketItemCopy.length)
-        console.log('------------------------------------------')
-        console.log(this.state.basketItemList)
-        //console.log(this.state.basketItemList.length)
-        console.log('------------------------------------------')
+        // console.log('------------------------------------------')
+        // console.log('---------- Item incluidos ----------------')
+        // console.log(basketItemCopy)
+        // console.log(basketItemCopy.length)
+        // console.log('------------------------------------------')
+        // console.log(this.state.basketItemList)
+        // console.log('------------------------------------------')
+        // console.log('---------- Nova quantidade ---------------')
+        // console.log(this.state.basketItemAmount)
+        // console.log(basketItemAmounUpdate)
+        // console.log('------------------------------------------')
 
-        AsyncStorage.setItem('userBasketItens', 
-            JSON.stringify(this.state.basketItemList))
+        if(this.state.basketItemList && this.state.basketItemAmount > 0){
+             await AsyncStorage.setItem('userBasketItens', 
+                JSON.stringify(this.state.basketItemList))
+        }else
+             await AsyncStorage.setItem('userBasketItens', 
+                JSON.stringify(basketItemCopy))
 
+        
     }
 
     render() {
