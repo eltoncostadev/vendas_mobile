@@ -26,9 +26,12 @@ export default class ControlItemPrice extends Component {
                     width: this.props.controlWidth,
                     flexDirection: 'row',
                     alignContent: 'center',
-                    justifyContent: 'center'
+                    justifyContent: 'center',
                 }}>
-                    <Text style={{ fontSize: this.props.displaySize, color: '#D11B00' }}>
+                    <Text style={{
+                        fontSize: this.props.displaySize, 
+                        color: '#D11B00' ,
+                    }}>
                         {this.props.itemAmount}
                     </Text>
                 </View>

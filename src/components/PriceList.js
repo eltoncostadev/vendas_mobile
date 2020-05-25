@@ -24,9 +24,15 @@ export default class PriceList extends Component {
 
     constructor(props) {
         super(props)
-        state = this.props.navigation.state.params.categories
         this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
+        //
+        state = 
+            typeof this.props.navigation.state.params === 'undefined' ? 
+                this.handleBackButtonClick() :
+                this.props.navigation.state.params.categories
+
       }
+
       componentDidMount() {
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
       }

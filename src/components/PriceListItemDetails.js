@@ -166,6 +166,7 @@ export default class PriceListItemDetails extends Component {
                         </Text>
                             <BasketItensView 
                                 {...this.props} 
+                                showControl={true}
                                 ref={this.BasketItemElement} />
                     </View>
                     <View style={styles.storeList}>
