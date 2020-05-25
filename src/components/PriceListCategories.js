@@ -22,7 +22,10 @@ export default class PriceListCategories extends Component {
                 <FlatList data={this.props.categories}
                     keyExtractor={item => `${item.id}`}
                     renderItem={({ item }) =>
-                        <PriceListCategoryItem {...item} {...this.props} />} />
+                        <PriceListCategoryItem 
+                        {...item} 
+                        {...this.props}
+                        showControl={true} />} />
             </View>
         )
     }

@@ -65,7 +65,9 @@ export default class PriceList extends Component {
                         <Text style={styles.title}>
                             Lista de Preço
                         </Text>
-                        <BasketItensView {...this.props}  />
+                        <BasketItensView 
+                            {...this.props}
+                            showControl={true}  />
                     </View>
                     <View style={styles.storeList}>
                         <View style={styles.storeListContainer}>

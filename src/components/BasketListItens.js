@@ -48,7 +48,7 @@ export default class BasketListItens extends Component {
 
         if(this.state.basketItemAmount === 0)
         {
-            alert('Você não possui mais itens na sacola!')
+            alert('Você não possui itens na sacola!')
             this.props.navigation.navigate('Home')
             return true
         }
@@ -93,7 +93,8 @@ export default class BasketListItens extends Component {
         let newbasketItemAmountList = this.state.basketItemAmountList.map(item => (
             item.itemDetailId ===
                 id.itemDetailId ? {
-                    ...item, itemAmount: item.itemAmount + 1
+                    ...item, itemAmount: item.itemAmount + 1, 
+                             itemPrice: item.ItemDetail.itemPrice * (item.itemAmount + 1)
                 } : item
         ))
         console.log('------------ Atualizar item na cesta (+) -----')
@@ -120,7 +121,9 @@ export default class BasketListItens extends Component {
         console.log('------------------------------------------')
         let newbasketItemAmountList = this.state.basketItemAmountList.map(item => (
             item.itemDetailId ===
-            itemSub.itemDetailId ? { ...item, itemAmount: item.itemAmount - 1 } : item
+            itemSub.itemDetailId ? { ...item, itemAmount: item.itemAmount - 1, 
+                itemPrice: item.ItemDetail.itemPrice * (item.itemAmount - 1)
+            } : item
         ))
         console.log('------------ Atualizar item na cesta (-) -----')
         console.log(newbasketItemAmountList)
@@ -157,6 +160,34 @@ export default class BasketListItens extends Component {
 
     }
 
+    getOrderItensSum = () =>{
+        console.log('------ getOrderSum ------')
+        let sumOrder = 0
+        let totalSum = 
+            this.state.basketItemAmountList.forEach((item, index)=>{
+                console.log(item.itemPrice)
+                sumOrder = sumOrder + item.itemPrice
+            })
+        console.log(sumOrder)
+        return sumOrder
+    }
+
+    getOrderSum = () =>{
+        console.log('------ getOrderSum ------')
+        let sumOrder = 0
+        let totalSum = 
+            this.state.basketItemAmountList.forEach((item, index)=>{
+                console.log(item.itemPrice)
+                sumOrder = sumOrder + item.itemPrice
+            })
+        console.log(sumOrder)
+        return sumOrder + this.getDeliveryCost()
+    }
+
+    getDeliveryCost = () => {
+        return 5
+    }
+
     handleBasktItemChange = (itemDetail) =>{
         this.BasketItemElement.current.changeQuantidade(1, itemDetail)
     }
@@ -177,7 +208,6 @@ export default class BasketListItens extends Component {
                     </Text>
                     <BasketItensView 
                         {...this.props}
-                        showControl={false}
                         ref={this.BasketItemElement} />
                 </View>
                 <View style={styles.storeList}>
@@ -273,25 +303,182 @@ export default class BasketListItens extends Component {
                                     </View>
                                     { this.state.basketItemAmountList.length - 1 === index
                                       ?
-                                        <View style={{
-                                            backgroundColor: '#FFFFFF',
-                                            marginTop: 10,
-                                            flexDirection: 'row',
-                                            width: 390,
-                                            height: 100,
-                                            borderRadius: 30,
-                                            marginBottom: 10
-                                        }}>
-                                            <View>
-                                                <Text>
-                                                    Endereço de Entrega
-                                                </Text>
-                                                <Text>
-                                                    Av. Afonso Pena, 1000
-                                                </Text>
-                                                <Text>
-                                                    Centro
-                                                </Text>
+                                        <View>
+                                            <View style={{
+                                                backgroundColor: '#FFFFFF',
+                                                flexDirection: 'row',
+                                                marginTop: 10,
+                                                alignItems: 'center',
+                                                width: 390,
+                                                height: 120,
+                                                borderRadius: 25,
+                                                marginBottom: 10
+                                            }}>
+                                                <View
+                                                    style={{
+                                                        flexDirection : 'row',
+                                                        marginLeft: 20
+                                                    }}>
+                                                    <View>
+                                                        <View style={{
+                                                            flexDirection: 'row',
+                                                            width: 270,
+                                                        }}>
+                                                            <Icon name='map-marker'
+                                                                    style={{
+                                                                        fontSize: 30
+                                                                    }} />
+                                                            <Text style={{
+                                                                fontSize: 25,
+                                                                fontFamily: 
+                                                                    commonStyles.fontFamilyList.Lato,
+                                                                marginLeft: 5
+                                                            }}>
+                                                                Endereço de Entrega
+                                                            </Text>
+                                                        </View>
+                                                        <View style={{
+                                                            width: 250
+                                                        }}>
+                                                            <Text style={{
+                                                                fontSize: 18,
+                                                                color: 'gray'
+                                                            }}>
+                                                                Av. Afonso Pena, Bloco 100, Ap. 300
+                                                            </Text>
+                                                            <Text style={{
+                                                                fontSize: 18,
+                                                                color: 'gray'
+                                                            }}>
+                                                                Centro
+                                                            </Text>
+                                                        </View>
+                                                    </View>
+                                                    <View style={{
+                                                        //marginLeft: 40
+                                                        flexDirection: 'row',
+                                                        alignItems: 'center',
+                                                        justifyContent: 'center',
+                                                        width: 120
+                                                    }}>
+                                                        <Icon name='edit'
+                                                            style={{
+                                                                fontSize : 40,
+                                                                color: 'gray'
+                                                            }} />
+                                                    </View>
+                                                </View>
+                                            </View>
+                                            <View style={{
+                                                backgroundColor: '#FFFFFF',
+                                                flexDirection: 'row',
+                                                alignItems: 'center',
+                                                width: 390,
+                                                height: 190,
+                                                borderRadius: 25,
+                                                marginBottom: 10,
+                                            }}>
+                                                <View
+                                                    style={{
+                                                        flexDirection : 'row',
+                                                        marginLeft: 20,
+                                                    }}>
+                                                    <View>
+                                                        <View style={{
+                                                            //flexDirection: 'row',
+                                                            width: 270,
+                                                            alignContent: 'center'
+                                                        }}>
+                                                            <View style={{
+                                                                flexDirection: 'row',
+                                                                justifyContent: 'space-between',
+                                                                width: 340
+                                                            }}>
+                                                                <Text style={{
+                                                                    fontSize: 25,
+                                                                    fontFamily: 
+                                                                        commonStyles.fontFamilyList.Lato,
+                                                                    marginLeft: 5
+                                                                }}>
+                                                                    {this.state.basketItemAmountList.length} Produto(s)
+                                                                </Text>
+                                                                <Text style={{
+                                                                fontSize: 25,
+                                                                fontFamily: 
+                                                                    commonStyles.fontFamilyList.Lato,
+                                                                marginLeft: 5
+                                                                }}>
+                                                                   {currencyFormat(this.getOrderItensSum())}
+                                                                </Text>
+                                                            </View>
+                                                            <View style={{
+                                                                flexDirection: 'row',
+                                                                justifyContent: 'space-between',
+                                                                width: 340
+                                                            }}>
+                                                                <Text style={{
+                                                                    fontSize: 25,
+                                                                    fontFamily: 
+                                                                        commonStyles.fontFamilyList.Lato,
+                                                                    marginLeft: 5
+                                                                }}>
+                                                                    Frete
+                                                                </Text>
+                                                                <Text style={{
+                                                                fontSize: 25,
+                                                                fontFamily: 
+                                                                    commonStyles.fontFamilyList.Lato,
+                                                                marginLeft: 5
+                                                                }}>
+                                                                    {currencyFormat(this.getDeliveryCost())}
+                                                                </Text>
+                                                            </View>
+                                                            <View style={{
+                                                                flexDirection: 'row',
+                                                                justifyContent: 'space-between',
+                                                                width: 340
+                                                            }}>
+                                                                <Text style={{
+                                                                    fontSize: 25,
+                                                                    fontFamily: 
+                                                                        commonStyles.fontFamilyList.Lato,
+                                                                    marginLeft: 5
+                                                                }}>
+                                                                    Total a pagar
+                                                                </Text>
+                                                                <Text style={{
+                                                                fontSize: 25,
+                                                                fontFamily: 
+                                                                    commonStyles.fontFamilyList.Lato,
+                                                                marginLeft: 5
+                                                                }}>
+                                                                    {currencyFormat(this.getOrderSum())}
+                                                                </Text>
+                                                            </View>
+                                                        </View>
+                                                        <TouchableWithoutFeedback
+                                                            onPress={() => this.props.navigation.navigate('Payment')}>
+                                                            <View style={{
+                                                                    height:50,
+                                                                    width: 340,
+                                                                    marginTop: 10,
+                                                                    borderRadius: 30,
+                                                                    backgroundColor: '#FCD75D',
+                                                                    flexDirection: 'row',
+                                                                    justifyContent: 'center',
+                                                                    alignItems: 'center'
+                                                                }}>
+                                                                <Text 
+                                                                    style={{
+                                                                        color: '#006600',
+                                                                        fontSize: 30,
+                                                                        fontFamily: commonStyles.fontFamilyList.Lato,}}>
+                                                                    Realizar Pagamento
+                                                                </Text>
+                                                            </View>
+                                                        </TouchableWithoutFeedback>
+                                                    </View>
+                                                </View>
                                             </View>
                                         </View>
                                         : null

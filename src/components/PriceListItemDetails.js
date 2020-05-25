@@ -166,8 +166,8 @@ export default class PriceListItemDetails extends Component {
                         </Text>
                             <BasketItensView 
                                 {...this.props} 
-                                showControl={true}
-                                ref={this.BasketItemElement} />
+                                ref={this.BasketItemElement}
+                                showControl={true} />
                     </View>
                     <View style={styles.storeList}>
                         <View style={styles.storeListContainer}>
@@ -262,7 +262,7 @@ export default class PriceListItemDetails extends Component {
                                         textAlign: 'center',
                                         color: '#006600',
                                         fontSize: 40,
-                                        fontFamily: commonStyles.fontFamilyList.LeckerliOneRegular,
+                                        fontFamily: commonStyles.fontFamilyList.Lato,
                                         marginLeft: 10,
                                         marginRight: 10,
                                     }} >

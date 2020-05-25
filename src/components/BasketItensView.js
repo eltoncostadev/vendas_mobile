@@ -75,7 +75,7 @@ export default class BasketItensView extends Component {
         const { navigate } = this.props.navigation
 
         return (
-            this.props.showControl !== null ? 
+            this.props.showControl === true ? 
                 <View>
                     <NavigationEvents onWillFocus={() => this.recarregarDados() } />
                     {this.state.basketItemAmount >= 1 ?
