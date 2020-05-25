@@ -12,6 +12,7 @@ import {
 
 import Icon from 'react-native-vector-icons/FontAwesome'
 import commonStyles from '../commonStyles'
+import { currencyFormat } from '../common'
 
 export default class PriceListItem extends Component {
 
@@ -45,7 +46,7 @@ export default class PriceListItem extends Component {
                     </View>
                     <View style={{ width: 250, marginLeft: 10 }}>
                         <Text style={styles.categoryItemName}> { this.props.itemName } </Text>
-                        <Text style={styles.categoryItemPrice}> { this.props.itemPrice } </Text>
+                        <Text style={styles.categoryItemPrice}> { currencyFormat(this.props.itemPrice) } </Text>
                     </View>
                     <Icon style={styles.categoryItemNameIcon} name='angle-right' />
                 </View>

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { StyleSheet, View, Text } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
+import {NavigationEvents} from 'react-navigation'
 
 import { AsyncStorage } from 'react-native'
 
@@ -19,29 +20,26 @@ export default class BasketItensView extends Component {
 
     componentDidMount = async () => {
 
-        console.log('** componentDidMount **')
+        // console.log('** componentDidMount **')
 
-        const stateString = await AsyncStorage.getItem('userBasketItens')
-        const state = JSON.parse(stateString)
+        // const stateString = await AsyncStorage.getItem('userBasketItens')
+        // const state = JSON.parse(stateString)
         
-        console.log('------------------------------------------')
-        console.log(stateString)
-        this.setState({ basketItemList : state })
+        // console.log('------------------------------------------')
+        // console.log(stateString)
+        // this.setState({ basketItemList : state })
 
-        if(this.state.basketItemList && this.state.basketItemList.length > 0 ){
-            this.setState({ basketItemAmount : this.state.basketItemList.length })
-            console.log('------------------------------------------')
-            console.log('---------- Item em memória ----------------')
-            console.log(this.state)
-            console.log(this.state.basketItemList.length)
-            console.log(this.state.basketItemAmount)
-            console.log('------------------------------------------')
-        }
+        // if(this.state.basketItemList && this.state.basketItemList.length > 0 ){
+        //     this.setState({ basketItemAmount : this.state.basketItemList.length })
+        //     console.log('------------------------------------------')
+        //     console.log('---------- Item em memória ----------------')
+        //     console.log(this.state)
+        //     console.log(this.state.basketItemList.length)
+        //     console.log(this.state.basketItemAmount)
+        //     console.log('------------------------------------------')
+        // }
     }
-
-    componentWillMount (){
-        alert('componentWillMount')
-    }
+    
 
     changeQuantidade = async  (itemAmountQuantity, item) => {
 
@@ -86,12 +84,34 @@ export default class BasketItensView extends Component {
         
     }
 
+    recarregarDados = async () => {
+
+        const stateString = await AsyncStorage.getItem('userBasketItens')
+        const state = JSON.parse(stateString)
+        
+        console.log('-------------- TESTE ------------------------')
+        console.log(stateString)
+        this.setState({ basketItemList : state })
+
+        if(this.state.basketItemList && this.state.basketItemList.length > 0 ){
+            this.setState({ basketItemAmount : this.state.basketItemList.length })
+            console.log('------------------------------------------')
+            console.log('---------- Item em memória ----------------')
+            console.log(this.state)
+            console.log(this.state.basketItemList.length)
+            console.log(this.state.basketItemAmount)
+            console.log('------------------------------------------')
+        }
+
+    }
+
     render() {
 
         const { navigate } = this.props.navigation
 
         return (
             <View>
+                <NavigationEvents onWillFocus={() => this.recarregarDados() } />
                 {this.state.basketItemAmount >= 1 ?
 
                     <TouchableWithoutFeedback 
@@ -127,3 +147,6 @@ export default class BasketItensView extends Component {
         )
     }
 }
+
+//problema da atualização resolvido no post abaixo
+//https://stackoverflow.com/questions/48018084/componentdidmount-function-is-not-called-after-navigation

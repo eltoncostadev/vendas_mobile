@@ -145,7 +145,7 @@ export default class PriceListItemDetails extends Component {
         this.handleBasktItemChange(itemDetail)
 
         alert('Item incluído com sucesso!')
-        //this.handleBackButtonClick()
+        this.handleBackButtonClick()
     }
 
     render() {
