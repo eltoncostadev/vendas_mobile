@@ -7,23 +7,48 @@ import {
     TouchableOpacity,
     BackHandler,
     Image,
-    FlatList
+    FlatList,
+    ActivityIndicator,
+    Alert
 } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { AsyncStorage } from 'react-native'
-import BasketItensView from './BasketItensView'
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
+import { WebView } from 'react-native-webview'
+import styled from 'styled-components/native'
 
+import BasketItensView from './BasketItensView'
+import ControlItemPrice from './ControlItemPrice'
 import commonStyles from '../commonStyles'
 import { currencyFormat } from '../common'
 import backgroundImage from '../../assets/imgs/BackGroundApp.png'
 
-import ControlItemPrice from './ControlItemPrice'
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
+const HeaderCheckout = styled.View`
+    flex: 0.1;
+    flex-direction: row;
+    background-color : #06AED5; 
+    justify-content: center;
+    align-items: center;
+`
+
+export const Title = styled.Text`
+    margin: 50px;
+    font-size: 22px;
+    color: white;
+    text-align: center;
+`
+
+const idPagamento = 0
+const emailPagamento = 'feiraonline@gmail.com'
+const descricaoPagamento = 'Feira Online'
 
 export default class BasketListItens extends Component {
 
     state = {
-        basketItemAmountList: []
+        basketItemAmount: 0,
+        basketItemAmountList: [], 
+        userOrders: [],
+        showCheckOut: false
     }
 
     constructor(props) {
@@ -73,19 +98,6 @@ export default class BasketListItens extends Component {
         return true
     }
 
-    state = {
-        basketItemAmount: 0,
-        basketItemAmountList: []
-    }
-
-    atualizaValor = () => {
-        // console.log('...atualizaValor...')
-        // console.log(this.state.itemAmount)
-        // var itemPrice = { ...this.itemPrice }
-        // itemPrice = this.state.ItemDetail.itemPrice * this.state.itemAmount
-        // this.setState({ itemPrice })
-    }
-
     ItemAdd = async (id) => {
         console.log('------------ ID --------------------------')
         console.log(id)
@@ -93,8 +105,8 @@ export default class BasketListItens extends Component {
         let newbasketItemAmountList = this.state.basketItemAmountList.map(item => (
             item.itemDetailId ===
                 id.itemDetailId ? {
-                    ...item, itemAmount: item.itemAmount + 1, 
-                             itemPrice: item.ItemDetail.itemPrice * (item.itemAmount + 1)
+                    ...item, itemAmount: item.itemAmount + 1,
+                    itemPrice: item.ItemDetail.itemPrice * (item.itemAmount + 1)
                 } : item
         ))
         console.log('------------ Atualizar item na cesta (+) -----')
@@ -106,7 +118,7 @@ export default class BasketListItens extends Component {
             basketItemAmountList: newbasketItemAmountList
         }
 
-        await AsyncStorage.setItem('userBasketItens', 
+        await AsyncStorage.setItem('userBasketItens',
             JSON.stringify(this.state.basketItemAmountList))
 
         this.carregarDados()
@@ -114,27 +126,28 @@ export default class BasketListItens extends Component {
 
     ItemSub = async (itemSub) => {
 
-        if(itemSub.itemAmount - 1 === 0) return false
+        if (itemSub.itemAmount - 1 === 0) return false
 
         console.log('------------ itemSub ---------------------')
         console.log(itemSub)
         console.log('------------------------------------------')
         let newbasketItemAmountList = this.state.basketItemAmountList.map(item => (
             item.itemDetailId ===
-            itemSub.itemDetailId ? { ...item, itemAmount: item.itemAmount - 1, 
-                itemPrice: item.ItemDetail.itemPrice * (item.itemAmount - 1)
-            } : item
+                itemSub.itemDetailId ? {
+                    ...item, itemAmount: item.itemAmount - 1,
+                    itemPrice: item.ItemDetail.itemPrice * (item.itemAmount - 1)
+                } : item
         ))
         console.log('------------ Atualizar item na cesta (-) -----')
         console.log(newbasketItemAmountList)
         console.log('----------------------------------------------')
-        
+
         this.state = {
             basketItemAmount: this.state.basketItemAmount,
             basketItemAmountList: newbasketItemAmountList
         }
 
-        await AsyncStorage.setItem('userBasketItens', 
+        await AsyncStorage.setItem('userBasketItens',
             JSON.stringify(this.state.basketItemAmountList))
 
         this.carregarDados()
@@ -144,43 +157,43 @@ export default class BasketListItens extends Component {
         console.log('------------- removeItemFromBasket ---------------------')
         console.log(itemDelete)
         console.log(this.state.basketItemAmountList)
-        const newbasketItemAmountList = 
+        const newbasketItemAmountList =
             this.state.basketItemAmountList.filter(
-                    item => item.itemDetailId !== itemDelete.itemDetailId)
-        
+                item => item.itemDetailId !== itemDelete.itemDetailId)
+
         this.state = {
             basketItemAmount: this.state.basketItemAmount,
             basketItemAmountList: newbasketItemAmountList
         }
 
-        await AsyncStorage.setItem('userBasketItens', 
+        await AsyncStorage.setItem('userBasketItens',
             JSON.stringify(this.state.basketItemAmountList))
 
         this.carregarDados()
 
     }
 
-    getOrderItensSum = () =>{
-        console.log('------ getOrderSum ------')
+    getOrderItensSum = () => {
+        //console.log('------ getOrderSum ------')
         let sumOrder = 0
-        let totalSum = 
-            this.state.basketItemAmountList.forEach((item, index)=>{
-                console.log(item.itemPrice)
+        let totalSum =
+            this.state.basketItemAmountList.forEach((item, index) => {
+                //console.log(item.itemPrice)
                 sumOrder = sumOrder + item.itemPrice
             })
-        console.log(sumOrder)
+        //console.log(sumOrder)
         return sumOrder
     }
 
-    getOrderSum = () =>{
-        console.log('------ getOrderSum ------')
+    getOrderSum = () => {
+        //console.log('------ getOrderSum ------')
         let sumOrder = 0
-        let totalSum = 
-            this.state.basketItemAmountList.forEach((item, index)=>{
-                console.log(item.itemPrice)
+        let totalSum =
+            this.state.basketItemAmountList.forEach((item, index) => {
+                //console.log(item.itemPrice)
                 sumOrder = sumOrder + item.itemPrice
             })
-        console.log(sumOrder)
+        //console.log(sumOrder)
         return sumOrder + this.getDeliveryCost()
     }
 
@@ -188,278 +201,383 @@ export default class BasketListItens extends Component {
         return 5
     }
 
-    handleBasktItemChange = (itemDetail) =>{
+    handleBasktItemChange = (itemDetail) => {
         this.BasketItemElement.current.changeQuantidade(1, itemDetail)
+    }
+
+    stateChange  = (changeState) => {
+        switch (changeState.title) {
+            case 'success':
+                //
+                this.setState({ showCheckOut : false })
+                setTimeout(() => {
+                        alert(`Recebemos seu pagamento de ${currencyFormat(this.getOrderSum())}`)                    
+                        this.voltarHome()
+                  }, 1000);
+                //
+                break;
+            case 'pending':
+                Alert.alert("Pagamento pendente!", `Seu pagamento de ${currencyFormat(this.getOrderItensSum())} está pendente de processamento, assim que for processado seguiremos com o pedido!`)
+                this.setState({ showCheckOut : false })
+                break;
+            case 'failure':
+                Alert.alert("Pagamento não aprovado!", 'Verifique os dados e tente novamente')
+                this.setState({ showCheckOut : false })
+                break;
+        }
+    }
+
+    voltarHome = () => {
+        //
+        this.addUserOrder()
+        //  
+        this.state = {
+            basketItemAmount: 0,
+            basketItemAmountList: null, 
+        }
+        //
+        console.log('------------------basketItemAmountList--------------------------------')
+        console.log(this.state.basketItemAmountList)
+        //
+        AsyncStorage.setItem('userBasketItens',
+            JSON.stringify(this.state.basketItemAmountList))
+        //
+        this.props.navigation.navigate('Home')
+            return true
+        //
+    }
+
+    addUserOrder = async () => {
+        const stateString = await AsyncStorage.getItem('userOrders')
+        const state = JSON.parse(stateString)
+
+        
+        console.log('---------------------------------------------')
+        console.log('--------------- addUserOrder ----------------')
+        console.log(state)
+        this.setState({ userOrders: state })
+        
+        console.log(this.state.userOrders)
+
+        if(this.state.userOrders === null){
+            console.log('novo')
+            let newOrderItem = []
+            let qtd = newOrderItem.push({
+                    orderListItens : this.state.basketItemAmountList,
+                    orderItensCount : this.state.basketItemAmountList.length,
+                    orderValue : currencyFormat(this.getOrderSum())
+                })
+            console.log(newOrderItem)
+            this.setState({userOrders : newOrderItem})
+            console.log(this.state.userOrders)
+
+            await AsyncStorage.setItem('userOrders',
+                JSON.stringify(this.state.userOrders))
+        }else{
+            console.log('mais 1')
+            let newOrderItem = this.state.userOrders
+            let qtd = newOrderItem.push({
+                    orderListItens : this.state.basketItemAmountList,
+                    orderItensCount : this.state.basketItemAmountList.length,
+                    orderValue : currencyFormat(this.getOrderSum())
+                })
+            console.log(newOrderItem)
+            this.setState({userOrders : newOrderItem})
+            console.log(this.state.userOrders)
+
+            await AsyncStorage.setItem('userOrders',
+                JSON.stringify(this.state.userOrders))
+        }
+        
     }
 
     render() {
 
         const { navigate } = this.props.navigation
-        return (
-            <ImageBackground source={backgroundImage}
-                style={{ width: '100%', height: '100%' }}>
-                <View style={styles.header}>
-                    <TouchableOpacity onPress={() => navigate('PriceList')}>
-                        <Icon name='arrow-left'
-                            style={styles.menuIcon} />
-                    </TouchableOpacity>
-                    <Text style={styles.title}>
-                        Sacola
-                    </Text>
-                    <BasketItensView 
-                        {...this.props}
-                        ref={this.BasketItemElement} />
+        
+        if(this.state.showCheckOut)
+        {
+            return(
+                <View style={{ flex: 1, justifyContent: 'center' }}>
+                    <HeaderCheckout>
+                        <TouchableOpacity onPress={() => this.setState({ showCheckOut : false })}><Text style={{ fontSize: 20, color: 'white' }}>{"<<"}</Text></TouchableOpacity>
+                        <Title>Pagamento do pedido</Title>
+                    </HeaderCheckout>
+                    <WebView
+                        source={{ uri: `https://3333-ea455e6e-d595-4e47-b1b5-f0603ba4e1d6.ws-us02.gitpod.io/payments/checkout/${idPagamento}/${emailPagamento}/${descricaoPagamento}/${this.getOrderSum()}` }}
+                        onNavigationStateChange={state => this.stateChange(state)}
+                        startInLoadingState={true}
+                        renderLoading={() => <ActivityIndicator></ActivityIndicator>}
+                    />
                 </View>
-                <View style={styles.storeList}>
-                    <View style={styles.storeListContainer}>
-                        <FlatList data={this.state.basketItemAmountList}
-                            keyExtractor={item => `${item.itemDetailId}`}
-                            renderItem={({ item, index }) =>
-                                <View>
-                                    
-                                    <View style={{
-                                        backgroundColor: '#FFFFFF',
-                                        marginTop: 10,
-                                        flexDirection: 'row',
-                                        width: 390,
-                                        height: 150,
-                                        borderRadius: 30
-                                    }}>
+            )
+        }else
+        {
+            return(
+                <ImageBackground source={backgroundImage}
+                    style={{ width: '100%', height: '100%' }}>
+                    <View style={styles.header}>
+                        <TouchableOpacity onPress={() => navigate('PriceList')}>
+                            <Icon name='arrow-left'
+                                style={styles.menuIcon} />
+                        </TouchableOpacity>
+                        <Text style={styles.title}>
+                            Sacola
+                        </Text>
+                        <BasketItensView
+                            {...this.props}
+                            ref={this.BasketItemElement} />
+                    </View>
+                    <View style={styles.storeList}>
+                        <View style={styles.storeListContainer}>
+                            <FlatList data={this.state.basketItemAmountList}
+                                keyExtractor={item => `${item.itemDetailId}`}
+                                renderItem={({ item, index }) =>
+                                    <View>
+
                                         <View style={{
-                                            //backgroundColor: '#D11B00',
-                                            height: 130,
-                                            width: 130,
+                                            backgroundColor: '#FFFFFF',
                                             marginTop: 10,
-                                            marginLeft: 10,
-                                            alignItems: 'center'
-                                        }}>
-                                            <Image
-                                                source={item.ItemDetail.itemImage}
-                                                style={{
-                                                    height: 120,
-                                                    width: 120
-                                                }} />
-                                        </View>
-                                        <View style={{
-                                            marginLeft: 5,
-                                            marginTop: 10
+                                            flexDirection: 'row',
+                                            width: 390,
+                                            height: 150,
+                                            borderRadius: 30
                                         }}>
                                             <View style={{
-                                                //backgroundColor: 'gray',
-                                                height: 60,
-                                                width: 170,
-                                                flexDirection: 'row',
+                                                //backgroundColor: '#D11B00',
+                                                height: 130,
+                                                width: 130,
+                                                marginTop: 10,
+                                                marginLeft: 10,
                                                 alignItems: 'center'
                                             }}>
-                                                <Text style={{
-                                                    //fontFamily: commonStyles.fontFamilyList.Lato,
-                                                    color: '#D11B00',
-                                                    fontSize: 20
-                                                }}>
-                                                    {item.ItemDetail.itemName}
-                                                </Text>
-                                            </View>
-                                            <Text
-                                                style={{
-                                                    fontSize: 15,
-                                                    marginBottom: 5
-                                                }}
-                                            >
-                                                {currencyFormat(item.ItemDetail.itemPrice)}
-                                            </Text>
-                                            <ControlItemPrice
-                                                {...this.props}
-                                                onClickSub={() => this.ItemSub(item)}
-                                                onClickAdd={() => this.ItemAdd(item)}
-                                                iconSize={40}
-                                                controlMargin={10}
-                                                controlHeight={30}
-                                                controlWidth={70}
-                                                displaySize={20}
-                                                itemAmount={item.itemAmount}
-                                            />
-                                        </View>
-                                        <View style={{
-                                            //backgroundColor: 'gray',
-                                            height: 130,
-                                            width: 60,
-                                            marginTop: 10,
-                                            marginLeft: 10,
-                                            alignItems: 'center'
-                                        }}>
-                                            <TouchableWithoutFeedback
-                                                onPress={()=> 
-                                                    this.removeItemFromBasket(item)
-                                                }>
-                                                <Icon
-                                                    name='trash'
+                                                <Image
+                                                    source={item.ItemDetail.itemImage}
                                                     style={{
-                                                        fontSize: 30,
-                                                        color: '#ffa799',
-
+                                                        height: 120,
+                                                        width: 120
                                                     }} />
-                                            </TouchableWithoutFeedback>
-                                        </View>
-                                    </View>
-                                    { this.state.basketItemAmountList.length - 1 === index
-                                      ?
-                                        <View>
+                                            </View>
                                             <View style={{
-                                                backgroundColor: '#FFFFFF',
-                                                flexDirection: 'row',
-                                                marginTop: 10,
-                                                alignItems: 'center',
-                                                width: 390,
-                                                height: 120,
-                                                borderRadius: 25,
-                                                marginBottom: 10
+                                                marginLeft: 5,
+                                                marginTop: 10
                                             }}>
-                                                <View
-                                                    style={{
-                                                        flexDirection : 'row',
-                                                        marginLeft: 20
+                                                <View style={{
+                                                    //backgroundColor: 'gray',
+                                                    height: 60,
+                                                    width: 170,
+                                                    flexDirection: 'row',
+                                                    alignItems: 'center'
+                                                }}>
+                                                    <Text style={{
+                                                        //fontFamily: commonStyles.fontFamilyList.Lato,
+                                                        color: '#D11B00',
+                                                        fontSize: 20
                                                     }}>
-                                                    <View>
-                                                        <View style={{
+                                                        {item.ItemDetail.itemName}
+                                                    </Text>
+                                                </View>
+                                                <Text
+                                                    style={{
+                                                        fontSize: 15,
+                                                        marginBottom: 5
+                                                    }}
+                                                >
+                                                    {currencyFormat(item.ItemDetail.itemPrice)}
+                                                </Text>
+                                                <ControlItemPrice
+                                                    {...this.props}
+                                                    onClickSub={() => this.ItemSub(item)}
+                                                    onClickAdd={() => this.ItemAdd(item)}
+                                                    iconSize={40}
+                                                    controlMargin={10}
+                                                    controlHeight={30}
+                                                    controlWidth={70}
+                                                    displaySize={20}
+                                                    itemAmount={item.itemAmount}
+                                                />
+                                            </View>
+                                            <View style={{
+                                                //backgroundColor: 'gray',
+                                                height: 130,
+                                                width: 60,
+                                                marginTop: 10,
+                                                marginLeft: 10,
+                                                alignItems: 'center'
+                                            }}>
+                                                <TouchableWithoutFeedback
+                                                    onPress={() =>
+                                                        this.removeItemFromBasket(item)
+                                                    }>
+                                                    <Icon
+                                                        name='trash'
+                                                        style={{
+                                                            fontSize: 30,
+                                                            color: '#ffa799',
+
+                                                        }} />
+                                                </TouchableWithoutFeedback>
+                                            </View>
+                                        </View>
+                                        {this.state.basketItemAmountList.length - 1 === index
+                                            ?
+                                            <View>
+                                                <View style={{
+                                                    backgroundColor: '#FFFFFF',
+                                                    flexDirection: 'row',
+                                                    marginTop: 10,
+                                                    alignItems: 'center',
+                                                    width: 390,
+                                                    height: 120,
+                                                    borderRadius: 25,
+                                                    marginBottom: 10
+                                                }}>
+                                                    <View
+                                                        style={{
                                                             flexDirection: 'row',
-                                                            width: 270,
+                                                            marginLeft: 20
                                                         }}>
-                                                            <Icon name='map-marker'
+                                                        <View>
+                                                            <View style={{
+                                                                flexDirection: 'row',
+                                                                width: 270,
+                                                            }}>
+                                                                <Icon name='map-marker'
                                                                     style={{
                                                                         fontSize: 30
                                                                     }} />
-                                                            <Text style={{
-                                                                fontSize: 25,
-                                                                fontFamily: 
-                                                                    commonStyles.fontFamilyList.Lato,
-                                                                marginLeft: 5
+                                                                <Text style={{
+                                                                    fontSize: 25,
+                                                                    fontFamily:
+                                                                        commonStyles.fontFamilyList.Lato,
+                                                                    marginLeft: 5
+                                                                }}>
+                                                                    Endereço de Entrega
+                                                                </Text>
+                                                            </View>
+                                                            <View style={{
+                                                                width: 250
                                                             }}>
-                                                                Endereço de Entrega
-                                                            </Text>
+                                                                <Text style={{
+                                                                    fontSize: 18,
+                                                                    color: 'gray'
+                                                                }}>
+                                                                    Av. Afonso Pena, Bloco 100, Ap. 300
+                                                                </Text>
+                                                                <Text style={{
+                                                                    fontSize: 18,
+                                                                    color: 'gray'
+                                                                }}>
+                                                                    Centro
+                                                                </Text>
+                                                            </View>
                                                         </View>
                                                         <View style={{
-                                                            width: 250
+                                                            //marginLeft: 40
+                                                            flexDirection: 'row',
+                                                            alignItems: 'center',
+                                                            justifyContent: 'center',
+                                                            width: 120
                                                         }}>
-                                                            <Text style={{
-                                                                fontSize: 18,
-                                                                color: 'gray'
-                                                            }}>
-                                                                Av. Afonso Pena, Bloco 100, Ap. 300
-                                                            </Text>
-                                                            <Text style={{
-                                                                fontSize: 18,
-                                                                color: 'gray'
-                                                            }}>
-                                                                Centro
-                                                            </Text>
+                                                            <Icon name='edit'
+                                                                style={{
+                                                                    fontSize: 40,
+                                                                    color: 'gray'
+                                                                }} />
                                                         </View>
-                                                    </View>
-                                                    <View style={{
-                                                        //marginLeft: 40
-                                                        flexDirection: 'row',
-                                                        alignItems: 'center',
-                                                        justifyContent: 'center',
-                                                        width: 120
-                                                    }}>
-                                                        <Icon name='edit'
-                                                            style={{
-                                                                fontSize : 40,
-                                                                color: 'gray'
-                                                            }} />
                                                     </View>
                                                 </View>
-                                            </View>
-                                            <View style={{
-                                                backgroundColor: '#FFFFFF',
-                                                flexDirection: 'row',
-                                                alignItems: 'center',
-                                                width: 390,
-                                                height: 190,
-                                                borderRadius: 25,
-                                                marginBottom: 10,
-                                            }}>
-                                                <View
-                                                    style={{
-                                                        flexDirection : 'row',
-                                                        marginLeft: 20,
-                                                    }}>
-                                                    <View>
-                                                        <View style={{
-                                                            //flexDirection: 'row',
-                                                            width: 270,
-                                                            alignContent: 'center'
+                                                <View style={{
+                                                    backgroundColor: '#FFFFFF',
+                                                    flexDirection: 'row',
+                                                    alignItems: 'center',
+                                                    width: 390,
+                                                    height: 190,
+                                                    borderRadius: 25,
+                                                    marginBottom: 10,
+                                                }}>
+                                                    <View
+                                                        style={{
+                                                            flexDirection: 'row',
+                                                            marginLeft: 20,
                                                         }}>
+                                                        <View>
                                                             <View style={{
-                                                                flexDirection: 'row',
-                                                                justifyContent: 'space-between',
-                                                                width: 340
+                                                                //flexDirection: 'row',
+                                                                width: 270,
+                                                                alignContent: 'center'
                                                             }}>
-                                                                <Text style={{
-                                                                    fontSize: 25,
-                                                                    fontFamily: 
-                                                                        commonStyles.fontFamilyList.Lato,
-                                                                    marginLeft: 5
+                                                                <View style={{
+                                                                    flexDirection: 'row',
+                                                                    justifyContent: 'space-between',
+                                                                    width: 340
                                                                 }}>
-                                                                    {this.state.basketItemAmountList.length} Produto(s)
-                                                                </Text>
-                                                                <Text style={{
-                                                                fontSize: 25,
-                                                                fontFamily: 
-                                                                    commonStyles.fontFamilyList.Lato,
-                                                                marginLeft: 5
+                                                                    <Text style={{
+                                                                        fontSize: 25,
+                                                                        fontFamily:
+                                                                            commonStyles.fontFamilyList.Lato,
+                                                                        marginLeft: 5
+                                                                    }}>
+                                                                        {this.state.basketItemAmountList.length} Produto(s)
+                                                                    </Text>
+                                                                    <Text style={{
+                                                                        fontSize: 25,
+                                                                        fontFamily:
+                                                                            commonStyles.fontFamilyList.Lato,
+                                                                        marginLeft: 5
+                                                                    }}>
+                                                                        {currencyFormat(this.getOrderItensSum())}
+                                                                    </Text>
+                                                                </View>
+                                                                <View style={{
+                                                                    flexDirection: 'row',
+                                                                    justifyContent: 'space-between',
+                                                                    width: 340
                                                                 }}>
-                                                                   {currencyFormat(this.getOrderItensSum())}
-                                                                </Text>
+                                                                    <Text style={{
+                                                                        fontSize: 25,
+                                                                        fontFamily:
+                                                                            commonStyles.fontFamilyList.Lato,
+                                                                        marginLeft: 5
+                                                                    }}>
+                                                                        Frete
+                                                                    </Text>
+                                                                    <Text style={{
+                                                                        fontSize: 25,
+                                                                        fontFamily:
+                                                                            commonStyles.fontFamilyList.Lato,
+                                                                        marginLeft: 5
+                                                                    }}>
+                                                                        {currencyFormat(this.getDeliveryCost())}
+                                                                    </Text>
+                                                                </View>
+                                                                <View style={{
+                                                                    flexDirection: 'row',
+                                                                    justifyContent: 'space-between',
+                                                                    width: 340
+                                                                }}>
+                                                                    <Text style={{
+                                                                        fontSize: 25,
+                                                                        fontFamily:
+                                                                            commonStyles.fontFamilyList.Lato,
+                                                                        marginLeft: 5
+                                                                    }}>
+                                                                        Total a pagar
+                                                                    </Text>
+                                                                    <Text style={{
+                                                                        fontSize: 25,
+                                                                        fontFamily:
+                                                                            commonStyles.fontFamilyList.Lato,
+                                                                        marginLeft: 5
+                                                                    }}>
+                                                                        {currencyFormat(this.getOrderSum())}
+                                                                    </Text>
+                                                                </View>
                                                             </View>
-                                                            <View style={{
-                                                                flexDirection: 'row',
-                                                                justifyContent: 'space-between',
-                                                                width: 340
-                                                            }}>
-                                                                <Text style={{
-                                                                    fontSize: 25,
-                                                                    fontFamily: 
-                                                                        commonStyles.fontFamilyList.Lato,
-                                                                    marginLeft: 5
-                                                                }}>
-                                                                    Frete
-                                                                </Text>
-                                                                <Text style={{
-                                                                fontSize: 25,
-                                                                fontFamily: 
-                                                                    commonStyles.fontFamilyList.Lato,
-                                                                marginLeft: 5
-                                                                }}>
-                                                                    {currencyFormat(this.getDeliveryCost())}
-                                                                </Text>
-                                                            </View>
-                                                            <View style={{
-                                                                flexDirection: 'row',
-                                                                justifyContent: 'space-between',
-                                                                width: 340
-                                                            }}>
-                                                                <Text style={{
-                                                                    fontSize: 25,
-                                                                    fontFamily: 
-                                                                        commonStyles.fontFamilyList.Lato,
-                                                                    marginLeft: 5
-                                                                }}>
-                                                                    Total a pagar
-                                                                </Text>
-                                                                <Text style={{
-                                                                fontSize: 25,
-                                                                fontFamily: 
-                                                                    commonStyles.fontFamilyList.Lato,
-                                                                marginLeft: 5
-                                                                }}>
-                                                                    {currencyFormat(this.getOrderSum())}
-                                                                </Text>
-                                                            </View>
-                                                        </View>
-                                                        <TouchableWithoutFeedback
-                                                            onPress={() => this.props.navigation.navigate('Payment')}>
-                                                            <View style={{
-                                                                    height:50,
+                                                            <TouchableWithoutFeedback
+                                                                onPress={ () => this.setState({ showCheckOut : true }) }>
+                                                                <View style={{
+                                                                    height: 50,
                                                                     width: 340,
                                                                     marginTop: 10,
                                                                     borderRadius: 30,
@@ -468,29 +586,31 @@ export default class BasketListItens extends Component {
                                                                     justifyContent: 'center',
                                                                     alignItems: 'center'
                                                                 }}>
-                                                                <Text 
-                                                                    style={{
-                                                                        color: '#006600',
-                                                                        fontSize: 30,
-                                                                        fontFamily: commonStyles.fontFamilyList.Lato,}}>
-                                                                    Realizar Pagamento
-                                                                </Text>
-                                                            </View>
-                                                        </TouchableWithoutFeedback>
+                                                                    <Text
+                                                                        style={{
+                                                                            color: '#006600',
+                                                                            fontSize: 30,
+                                                                            fontFamily: commonStyles.fontFamilyList.Lato,
+                                                                        }}>
+                                                                        Realizar Pagamento
+                                                                    </Text>
+                                                                </View>
+                                                            </TouchableWithoutFeedback>
+                                                        </View>
                                                     </View>
                                                 </View>
                                             </View>
-                                        </View>
-                                        : null
-                                    }
-                                    
+                                            : null
+                                        }
 
-                                </View>
-                            } />
+
+                                    </View>
+                                } />
+                        </View>
                     </View>
-                </View>
-            </ImageBackground>
-        )
+                </ImageBackground>
+            )
+        }
     }
 }
 

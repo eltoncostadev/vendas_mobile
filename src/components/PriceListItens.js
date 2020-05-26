@@ -82,7 +82,7 @@ export default class PriceListItens extends Component {
             },
             {
                 id: Math.random(),
-                itemName: 'Uva Crimson com desc grande',
+                itemName: 'Uva Crimson',
                 itemPrice: 14.50,
                 itemImage: imgUva
             },

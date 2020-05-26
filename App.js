@@ -11,7 +11,8 @@ import {createDrawerNavigator } from 'react-navigation-drawer'
 import Login from './src/screens/Login'
 import Home from './src/screens/Home'
 import Menu from './src/screens/Menu'
-import Payment from './src/screens/Payment'
+import Orders from './src/screens/Orders'
+import OrderItem from './src/components/OrderItem'
 import StoreList from './src/components/StoreList'
 import PriceList from './src/components/PriceList'
 import PriceListCategories from './src/components/PriceListCategories'
@@ -44,7 +45,14 @@ const MenuRoutes = {
           //drawerLabel: () => null,
           title: 'Inicio'
       }
-  }
+  },
+  Orders: {
+      name: 'Meus Pedidos',
+      screen: props => <Orders title='Meus Pedidos' {...props} />,
+      navigationOptions: {
+          title: 'Meus Pedidos'
+      }
+  },
 }
 
 const MenuNavigator = createDrawerNavigator(MenuRoutes, menuConfig)
@@ -60,7 +68,8 @@ const App = createStackNavigator({
     PriceListItem: {screen: PriceListItem, navigationOptions: {headerShown: false} }, 
     PriceListItemDetails: {screen: PriceListItemDetails, navigationOptions: {headerShown: false} }, 
     BasketListItens: {screen: BasketListItens, navigationOptions: {headerShown: false} }, 
-    Payment: {screen: Payment, navigationOptions: {headerShown: false} }, 
+    Orders: {screen: Orders, navigationOptions: {headerShown: false} }, 
+    OrderItem: {screen: OrderItem, navigationOptions: {headerShown: false} }, 
 
   },
   {

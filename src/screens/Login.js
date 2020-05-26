@@ -51,6 +51,7 @@ export default class Login extends Component {
                         <InputIcon
                             icon='lock'
                             placeholder='Senha'
+                            secureTextEntry={true}
                             value={this.state.senha} />
                         {this.state.stageNew &&
                             <InputIcon
