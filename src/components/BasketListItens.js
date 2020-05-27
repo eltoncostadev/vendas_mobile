@@ -265,7 +265,8 @@ export default class BasketListItens extends Component {
             let qtd = newOrderItem.push({
                     orderListItens : this.state.basketItemAmountList,
                     orderItensCount : this.state.basketItemAmountList.length,
-                    orderValue : currencyFormat(this.getOrderSum())
+                    orderValue : currencyFormat(this.getOrderSum()),
+                    orderDate : new Date()
                 })
             console.log(newOrderItem)
             this.setState({userOrders : newOrderItem})
@@ -339,7 +340,7 @@ export default class BasketListItens extends Component {
                                             backgroundColor: '#FFFFFF',
                                             marginTop: 10,
                                             flexDirection: 'row',
-                                            width: 390,
+                                            //width: 390,
                                             height: 150,
                                             borderRadius: 30
                                         }}>
@@ -427,7 +428,7 @@ export default class BasketListItens extends Component {
                                                     flexDirection: 'row',
                                                     marginTop: 10,
                                                     alignItems: 'center',
-                                                    width: 390,
+                                                    //width: 390,
                                                     height: 120,
                                                     borderRadius: 25,
                                                     marginBottom: 10
@@ -491,7 +492,7 @@ export default class BasketListItens extends Component {
                                                     backgroundColor: '#FFFFFF',
                                                     flexDirection: 'row',
                                                     alignItems: 'center',
-                                                    width: 390,
+                                                    //width: 390,
                                                     height: 190,
                                                     borderRadius: 25,
                                                     marginBottom: 10,
@@ -504,13 +505,13 @@ export default class BasketListItens extends Component {
                                                         <View>
                                                             <View style={{
                                                                 //flexDirection: 'row',
-                                                                width: 270,
-                                                                alignContent: 'center'
+                                                                //width: 270,
+                                                                //alignContent: 'center'
                                                             }}>
                                                                 <View style={{
                                                                     flexDirection: 'row',
                                                                     justifyContent: 'space-between',
-                                                                    width: 340
+                                                                    //width: 340
                                                                 }}>
                                                                     <Text style={{
                                                                         fontSize: 25,
@@ -532,7 +533,7 @@ export default class BasketListItens extends Component {
                                                                 <View style={{
                                                                     flexDirection: 'row',
                                                                     justifyContent: 'space-between',
-                                                                    width: 340
+                                                                    //width: 340
                                                                 }}>
                                                                     <Text style={{
                                                                         fontSize: 25,
@@ -554,7 +555,7 @@ export default class BasketListItens extends Component {
                                                                 <View style={{
                                                                     flexDirection: 'row',
                                                                     justifyContent: 'space-between',
-                                                                    width: 340
+                                                                    //width: 340
                                                                 }}>
                                                                     <Text style={{
                                                                         fontSize: 25,
@@ -578,7 +579,7 @@ export default class BasketListItens extends Component {
                                                                 onPress={ () => this.setState({ showCheckOut : true }) }>
                                                                 <View style={{
                                                                     height: 50,
-                                                                    width: 340,
+                                                                    //width: 340,
                                                                     marginTop: 10,
                                                                     borderRadius: 30,
                                                                     backgroundColor: '#FCD75D',

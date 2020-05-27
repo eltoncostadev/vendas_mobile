@@ -26,11 +26,6 @@ export default class PriceList extends Component {
         super(props)
         this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
         //
-        state = 
-            typeof this.props.navigation.state.params === 'undefined' ? 
-                this.handleBackButtonClick() :
-                this.props.navigation.state.params.categories
-
       }
 
       componentDidMount() {
@@ -40,12 +35,21 @@ export default class PriceList extends Component {
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
       }
       handleBackButtonClick() {
-        this.props.navigation.navigate('StoreList')
+        this.props.navigation.navigate('Home')
         return true
       }
 
     state = {
         ...initialState
+    }
+
+    state = {
+        categories: [
+            { id: Math.random(), name: 'Frutas' },
+            { id: Math.random(), name: 'Legumes' },
+            { id: Math.random(), name: 'Verduras' },
+            { id: Math.random(), name: 'Outros' }
+        ]
     }
 
     render() {
@@ -58,7 +62,7 @@ export default class PriceList extends Component {
                     style={{ width: '100%', height: '100%' }}>
                     <View style={styles.header}>
                         <TouchableOpacity
-                            onPress={() => navigate('StoreList')}>
+                            onPress={() => navigate('Home')}>
                             <Icon name='arrow-left'
                                 style={styles.menuIcon} />
                         </TouchableOpacity>
@@ -71,7 +75,7 @@ export default class PriceList extends Component {
                     </View>
                     <View style={styles.storeList}>
                         <View style={styles.storeListContainer}>
-                            <PriceListCategories categories={state} {...this.props}></PriceListCategories>
+                            <PriceListCategories categories={this.state.categories} {...this.props}></PriceListCategories>
                         </View>
                     </View>
                 </ImageBackground>

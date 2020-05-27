@@ -180,7 +180,7 @@ export default class PriceListItemDetails extends Component {
                                 <View style={{
                                     flexDirection: 'row',
                                     justifyContent: 'space-between',
-                                    width: 360,
+                                    //width: 360,
                                     marginTop: 5,
                                     marginRight: 15,
                                     marginLeft: 15,
@@ -196,7 +196,7 @@ export default class PriceListItemDetails extends Component {
                                 <View style={{
                                     flexDirection: 'row',
                                     justifyContent: 'space-between',
-                                    width: 390,
+                                    //width: 390,
 
                                     marginTop: 10,
                                     paddingRight: 20,
@@ -207,7 +207,7 @@ export default class PriceListItemDetails extends Component {
                                         {...this.props}
                                         iconSize={80}
                                         controlHeight={40}
-                                        controlWidth={200}
+                                        controlWidth={160}
                                         displaySize={30}
                                         controlMargin={25}
                                         itemAmount={0}  
@@ -225,7 +225,7 @@ export default class PriceListItemDetails extends Component {
                                     justifyContent: 'space-between',
                                     alignContent: 'center',
                                     height: 40,
-                                    width: 390,
+                                    //width: 390,
                                     paddingRight: 20,
                                     paddingLeft: 20
                                 }}>
@@ -313,7 +313,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFFFFF',
         borderRadius: 15,
         height: 170,
-        width: 390,
+        //width: 390,
         flexDirection: 'row',
         justifyContent: 'center',
         alignContent: 'center'
@@ -327,7 +327,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#FCD75D',
         borderRadius: 15,
         height: 60,
-        width: 390,
+        //width: 390,
         flexDirection: 'row',
         alignItems: 'center',
     },
@@ -336,21 +336,21 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFFFFF',
         borderRadius: 15,
         height: 90,
-        width: 390,
+        //width: 390,
     },
     itemPriceControl: {
         marginTop: 10,
         backgroundColor: '#FFFFFF',
         borderRadius: 15,
         height: 150,
-        width: 390,
+        //width: 390,
     },
     itemAddOrder: {
         marginTop: 10,
         backgroundColor: '#FCD75D',
         borderRadius: 30,
         height: 60,
-        width: 390,
+        //width: 390,
     },
 })
 

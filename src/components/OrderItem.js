@@ -17,29 +17,39 @@ import commonStyles from '../commonStyles'
 import { currencyFormat } from '../common'
 import backgroundImage from '../../assets/imgs/BackGroundApp.png'
 
+
+const initialState = {
+    orderListItens : [] 
+}
+
+
 export default class OrderItem extends Component {
+
+    state = {
+        ...initialState
+    }
 
     constructor(props) {
         super(props)
-        this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
+        //
+        this.handleBackButtonClick = this.handleBackButtonClick.bind(this)
+        //
+        this.state.orderListItens = this.props.navigation.state.params.orderListItens
+        //
+        console.log(this.state.orderListItens)
       }
 
-        state = {
-            basketItemAmount: 0,
-            basketItemAmountList: []
-        }
-    
         carregarDados = async () => {
-            const stateString = await AsyncStorage.getItem('userBasketItens')
-            const state = JSON.parse(stateString)
-            this.setState({ basketItemAmountList: state })
-            this.setState({ basketItemAmount: this.state.basketItemAmountList.length })
-            console.log('--------------------------------------------------------------')
-            console.log('-- Item em memória - Cesta de Compras (componentDidMount) ----')
-            console.log(this.state)
-            console.log('------------- Qtd. Itens -----------------')
-            console.log(this.state.basketItemAmount)
-            console.log('------------------------------------------')
+            // const stateString = await AsyncStorage.getItem('userBasketItens')
+            // const state = JSON.parse(stateString)
+            // this.setState({ basketItemAmountList: state })
+            // this.setState({ basketItemAmount: this.state.basketItemAmountList.length })
+            // console.log('--------------------------------------------------------------')
+            // console.log('-- Item em memória - Cesta de Compras (componentDidMount) ----')
+            // console.log(this.state)
+            // console.log('------------- Qtd. Itens -----------------')
+            // console.log(this.state.basketItemAmount)
+            // console.log('------------------------------------------')
    
         }
     
@@ -60,7 +70,7 @@ export default class OrderItem extends Component {
             console.log('------ getOrderSum ------')
             let sumOrder = 0
             let totalSum =
-                this.state.basketItemAmountList.forEach((item, index) => {
+                this.state.orderListItens.forEach((item, index) => {
                     console.log(item.itemPrice)
                     sumOrder = sumOrder + item.itemPrice
                 })
@@ -72,7 +82,7 @@ export default class OrderItem extends Component {
             console.log('------ getOrderSum ------')
             let sumOrder = 0
             let totalSum =
-                this.state.basketItemAmountList.forEach((item, index) => {
+                this.state.orderListItens.forEach((item, index) => {
                     console.log(item.itemPrice)
                     sumOrder = sumOrder + item.itemPrice
                 })
@@ -99,7 +109,7 @@ export default class OrderItem extends Component {
                         </View>
                         <View style={styles.storeList}>
                             <View style={styles.storeListContainer}>
-                                <FlatList data={this.state.basketItemAmountList}
+                                <FlatList data={this.state.orderListItens}
                                     keyExtractor={item => `${item.itemDetailId}`}
                                     renderItem={({ item, index }) =>
                                         <View>
@@ -167,7 +177,7 @@ export default class OrderItem extends Component {
                                                     
                                                 </View>
                                             </View>
-                                            {this.state.basketItemAmountList.length - 1 === index
+                                            {this.state.orderListItens.length - 1 === index
                                                 ?
                                                 <View>
                                                     <View style={{
@@ -262,7 +272,7 @@ export default class OrderItem extends Component {
                                                                                 commonStyles.fontFamilyList.Lato,
                                                                             marginLeft: 5
                                                                         }}>
-                                                                            {this.state.basketItemAmountList.length} Produto(s)
+                                                                            {this.state.orderListItens.length} Produto(s)
                                                                         </Text>
                                                                         <Text style={{
                                                                             fontSize: 25,

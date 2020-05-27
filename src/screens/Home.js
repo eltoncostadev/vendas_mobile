@@ -51,7 +51,7 @@ export default class Home extends Component {
                     </Text>
                 </View>
                 <View style={styles.info}>
-                    <TouchableOpacity onPress={() =>navigate('StoreList')}>
+                    <TouchableOpacity onPress={() =>navigate('PriceList')}>
                         <View style={styles.listPriceButton}>
                             <Text style={styles.buttonText}>Lista de Preços</Text>
                             <Icon style={{
@@ -79,7 +79,7 @@ export default class Home extends Component {
                 <View style={styles.tips}>
                     <View style={styles.mainInfo}>
                         <View style={styles.mainInfoTitle}>
-                            <Icon name='heart' 
+                            <Icon name='hashtag' 
                                 style={{ fontSize: 45, color: '#F70000' }} />
                             <Text style={styles.mainInfoTitleText}>
                                 Dicas

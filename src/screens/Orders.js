@@ -8,43 +8,47 @@ import {
     Image,
     FlatList,
     Alert,
-    TouchableOpacity
+    TouchableOpacity,
+    NavigationEvents
 } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { AsyncStorage } from 'react-native'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
-
+import moment from 'moment'
 
 import commonStyles from '../commonStyles'
 import { currencyFormat } from '../common'
 import backgroundImage from '../../assets/imgs/BackGroundApp.png'
 
+const initialState = {
+    userOrders: []
+}
+
 export default class Orders extends Component {
 
     constructor(props) {
         super(props)
-        this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
         //
-        this.carregarDados()
+        this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
       }
 
         state = {
-            userOrders: []
+            ...initialState
         }
-    
+
+
         carregarDados = async () => {
             const stateString = await AsyncStorage.getItem('userOrders')
             const state = JSON.parse(stateString)
             console.log('---------------------------------------------')
             console.log('--------------- carregarDados ---------------')
-            //console.log(state)
             this.setState({ userOrders: state })
             console.log(this.state.userOrders)
         }
-    
+
         componentDidMount = () => {
             //
-            this.carregarDados()
+            //this.carregarDados()
             //
             BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick)
             //
@@ -60,84 +64,88 @@ export default class Orders extends Component {
             const { navigate } = this.props.navigation
 
                 return(
-                    <ImageBackground source={backgroundImage}
-                        style={{ width: '100%', height: '100%' }}>
-                        <View style={styles.header}>
-                            <TouchableOpacity onPress={() => this.props.navigation.openDrawer()}>
-                                <Icon name='bars'
-                                    style={styles.menuIcon} />
-                            </TouchableOpacity>                            
-                            <Text style={styles.title}>
-                                Meus Pedidos
-                            </Text>
-                            
-                        </View>
-                        <View style={styles.storeList}>
-                            <View style={styles.storeListContainer}>
-                                <FlatList data={this.state.userOrders}
-                                    keyExtractor={item => `${item.itemDetailId}`}
-                                    renderItem={({ item, index }) =>
-                                        <View style={{
-                                            backgroundColor : '#FFFFFF',
-                                            width: 390,
-                                            height: 170,
-                                            borderRadius: 25,
-                                            marginBottom: 10,
-                                        }}>
+                    <View>
+                        
+                        <ImageBackground source={backgroundImage} onLoad={()=> this.carregarDados()}
+                            style={{ width: '100%', height: '100%' }}>
+                            <View style={styles.header}>
+                                <TouchableOpacity onPress={() => this.props.navigation.openDrawer()}>
+                                    <Icon name='bars'
+                                        style={styles.menuIcon} />
+                                </TouchableOpacity>                            
+                                <Text style={styles.title}>
+                                    Meus Pedidos
+                                </Text>
+                                
+                            </View>
+                            <View style={styles.storeList}>
+                                <View style={styles.storeListContainer}>
+                                    <FlatList data={this.state.userOrders}
+                                        keyExtractor={item => `${item.itemDetailId}`}
+                                        renderItem={({ item, index }) =>
                                             <View style={{
-                                                marginTop: 10,
-                                                marginLeft: 20
+                                                backgroundColor : '#FFFFFF',
+                                                width: 390,
+                                                height: 170,
+                                                borderRadius: 25,
+                                                marginBottom: 10,
                                             }}>
-                                                <Text style={{
-                                                    fontSize: 30,
-                                                    fontFamily: commonStyles.fontFamilyList.Lato
-                                                }}>
-                                                    Pedido pago
-                                                </Text>
-                                                <Text style={{
-                                                    fontSize: 15,
-                                                    fontFamily: commonStyles.fontFamilyList.Lato
-                                                }}>
-                                                    Realizado em 26/05/2020
-                                                </Text>
-                                                <Text style={{
-                                                    fontSize: 15,
-                                                    fontFamily: commonStyles.fontFamilyList.Lato
-                                                }}>
-                                                    Quantidade de Itens {item.orderListItens.length}
-                                                </Text>
-                                                <Text style={{
-                                                    fontSize: 15,
-                                                    fontFamily: commonStyles.fontFamilyList.Lato
-                                                }}>
-                                                    Valor do Pedido {item.orderValue}
-                                                </Text>
-                                            </View>
-                                            <TouchableWithoutFeedback
-                                                onPress={() => this.props.navigation.navigate('OrderItem')}>
                                                 <View style={{
-                                                    flexDirection: 'row',
                                                     marginTop: 10,
-                                                    marginLeft: 20,
-                                                    marginRight: 20,
-                                                    borderTopWidth: 2,
-                                                    borderTopColor: 'gray',
-                                                    justifyContent: 'center'
+                                                    marginLeft: 20
                                                 }}>
                                                     <Text style={{
-                                                        marginTop: 5,
-                                                        fontSize: 20,
-                                                        color: 'gray'
+                                                        fontSize: 30,
+                                                        fontFamily: commonStyles.fontFamilyList.Lato
                                                     }}>
-                                                        Ver Detalhes
+                                                        Pedido pago
+                                                    </Text>
+                                                    <Text style={{
+                                                        fontSize: 15,
+                                                        fontFamily: commonStyles.fontFamilyList.Lato
+                                                    }}>
+                                                        Realizado em {moment(item.orderDate).format('D[/]MM[/]YYYY [às] hh:mm')}
+                                                    </Text>
+                                                    <Text style={{
+                                                        fontSize: 15,
+                                                        fontFamily: commonStyles.fontFamilyList.Lato
+                                                    }}>
+                                                        Quantidade de Itens {item.orderListItens.length}
+                                                    </Text>
+                                                    <Text style={{
+                                                        fontSize: 15,
+                                                        fontFamily: commonStyles.fontFamilyList.Lato
+                                                    }}>
+                                                        Valor do Pedido {item.orderValue}
                                                     </Text>
                                                 </View>
-                                            </TouchableWithoutFeedback>
-                                        </View>
-                                    } />
+                                                <TouchableWithoutFeedback
+                                                    onPress={() => this.props.navigation.navigate('OrderItem'
+                                                    ,{orderListItens : item.orderListItens})}>
+                                                    <View style={{
+                                                        flexDirection: 'row',
+                                                        marginTop: 10,
+                                                        marginLeft: 20,
+                                                        marginRight: 20,
+                                                        borderTopWidth: 2,
+                                                        borderTopColor: 'gray',
+                                                        justifyContent: 'center'
+                                                    }}>
+                                                        <Text style={{
+                                                            marginTop: 5,
+                                                            fontSize: 20,
+                                                            color: 'gray'
+                                                        }}>
+                                                            Ver Detalhes
+                                                        </Text>
+                                                    </View>
+                                                </TouchableWithoutFeedback>
+                                            </View>
+                                        } />
+                                </View>
                             </View>
-                        </View>
-                    </ImageBackground>
+                        </ImageBackground>
+                    </View>
                 )
         }
     }

@@ -5,7 +5,7 @@ import { Alert, Platform } from 'react-native'
 
 const server = 'http://10.0.2.2:3000'
 
-const singleListMode = false
+const singleListMode = true
 
 function showError(err) {
     Alert.alert('Ops! Ocorreu um Problema!', `Mensagem: ${err}`)
