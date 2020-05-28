@@ -150,31 +150,5 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         marginRight: 10,
     },
-    categoryItem: {
-        backgroundColor: '#FCD75D',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginTop: 10,
-        marginBottom: 20,
-        height: 100,
-        borderRadius: 15
-    },
-    categoryItemName: {
-        fontSize: 30,
-        color: '#D11B00',
-        fontFamily: commonStyles.fontFamilyList.Lato,
-    },
-    categoryItemPrice: {
-        fontSize: 25,
-        color: '#D11B00',
-        fontFamily: commonStyles.fontFamilyList.Lato,
-        marginLeft: 10
-    },
-    categoryItemNameIcon: {
-        fontSize: 50,
-        color: '#D11B00',
-        paddingRight: 30
-    }
 })
 

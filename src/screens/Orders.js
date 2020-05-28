@@ -40,15 +40,13 @@ export default class Orders extends Component {
         carregarDados = async () => {
             const stateString = await AsyncStorage.getItem('userOrders')
             const state = JSON.parse(stateString)
-            console.log('---------------------------------------------')
-            console.log('--------------- carregarDados ---------------')
+            // console.log('---------------------------------------------')
+            // console.log('--------------- carregarDados ---------------')
             this.setState({ userOrders: state })
             console.log(this.state.userOrders)
         }
 
         componentDidMount = () => {
-            //
-            //this.carregarDados()
             //
             BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick)
             //
@@ -85,8 +83,8 @@ export default class Orders extends Component {
                                         renderItem={({ item, index }) =>
                                             <View style={{
                                                 backgroundColor : '#FFFFFF',
-                                                width: 390,
-                                                height: 170,
+                                                //width: 390,
+                                                height: 180,
                                                 borderRadius: 25,
                                                 marginBottom: 10,
                                             }}>
@@ -133,6 +131,7 @@ export default class Orders extends Component {
                                                     }}>
                                                         <Text style={{
                                                             marginTop: 5,
+                                                            //marginBottom: 10,
                                                             fontSize: 20,
                                                             color: 'gray'
                                                         }}>

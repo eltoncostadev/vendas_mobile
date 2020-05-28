@@ -206,6 +206,7 @@ export default class BasketListItens extends Component {
     }
 
     stateChange  = (changeState) => {
+        //console.log(changeState)
         switch (changeState.title) {
             case 'success':
                 //
@@ -374,7 +375,7 @@ export default class BasketListItens extends Component {
                                                     alignItems: 'center'
                                                 }}>
                                                     <Text style={{
-                                                        //fontFamily: commonStyles.fontFamilyList.Lato,
+                                                        fontFamily: commonStyles.fontFamilyList.Lato,
                                                         color: '#D11B00',
                                                         fontSize: 17
                                                     }}>
@@ -507,7 +508,7 @@ export default class BasketListItens extends Component {
                                                     //alignItems: 'center',
                                                     //justifyContent: 'center',
                                                     //width: 390,
-                                                    height: 190,
+                                                    maxHeight: 190,
                                                     padding: 15,
                                                     borderRadius: 25,
                                                     //marginBottom: 10,

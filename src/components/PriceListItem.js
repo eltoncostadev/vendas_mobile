@@ -44,7 +44,7 @@ export default class PriceListItem extends Component {
                                 }
                             } />
                     </View>
-                    <View style={{ width: 250, marginLeft: 10 }}>
+                    <View style={{ marginLeft: 10 }}>
                         <Text style={styles.categoryItemName}> { this.props.itemName } </Text>
                         <Text style={styles.categoryItemPrice}> { currencyFormat(this.props.itemPrice) } </Text>
                     </View>
@@ -67,12 +67,12 @@ const styles = StyleSheet.create({
         borderRadius: 15
     },
     categoryItemName: {
-        fontSize: 30,
+        fontSize: 20,
         color: '#D11B00',
         fontFamily: commonStyles.fontFamilyList.Lato,
     },
     categoryItemPrice: {
-        fontSize: 25,
+        fontSize: 15,
         color: '#D11B00',
         fontFamily: commonStyles.fontFamilyList.Lato,
         marginLeft: 10

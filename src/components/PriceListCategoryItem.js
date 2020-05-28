@@ -54,12 +54,12 @@ const styles = StyleSheet.create({
         flexDirection: 'row', 
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginBottom: 20,
-        height: 100,
+        marginBottom: 10,
+        height: 70,
         borderRadius: 15
     },
     categoryItemName: {
-        fontSize: 50,
+        fontSize: 35,
         color: '#D11B00',
         fontFamily: commonStyles.fontFamilyList.Lato,
         marginLeft: 15

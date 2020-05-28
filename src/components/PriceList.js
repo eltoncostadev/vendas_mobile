@@ -60,19 +60,19 @@ export default class PriceList extends Component {
             <View>
                 <ImageBackground source={backgroundImage}
                     style={{ width: '100%', height: '100%' }}>
-                    <View style={styles.header}>
-                        <TouchableOpacity
-                            onPress={() => navigate('Home')}>
-                            <Icon name='arrow-left'
-                                style={styles.menuIcon} />
-                        </TouchableOpacity>
-                        <Text style={styles.title}>
-                            Categorias
-                        </Text>
-                        <BasketItensView 
-                            {...this.props}
-                            showControl={true}  />
-                    </View>
+                        <View style={styles.header}>
+                            <TouchableOpacity
+                                onPress={() => navigate('Home')}>
+                                <Icon name='arrow-left'
+                                    style={styles.menuIcon} />
+                            </TouchableOpacity>
+                            <Text style={styles.title}>
+                                Categorias
+                            </Text>
+                            <BasketItensView 
+                                {...this.props}
+                                showControl={true}  />
+                        </View>
                     <View style={styles.storeList}>
                         <View style={styles.storeListContainer}>
                             <PriceListCategories categories={this.state.categories} {...this.props}></PriceListCategories>
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     title: {
         fontFamily: commonStyles.fontFamilyList.LeckerliOneRegular,
         color: '#FFFFFF',
-        fontSize: 40,
+        fontSize: 30,
         marginRight: 20
     },
     storeList: {
@@ -103,51 +103,4 @@ const styles = StyleSheet.create({
     storeListContainer: {
         margin: 10,
     },
-    storeListItem: {
-        color: '#ED9C50',
-        backgroundColor: '#FCD75D',
-        height: 140,
-        flexDirection: 'row',
-        alignItems: 'center',
-        alignContent: 'center',
-        marginTop: 15,
-        borderRadius: 12
-    },
-    storeImage: {
-        color: '#D11B00',
-        width: 120,
-        height: 120,
-        borderRadius: 10,
-        borderColor: '#D11B00',
-        borderWidth: 4,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#ffffcc',
-        margin: 10,
-    },
-    storeDescription:
-    {
-        height: 130
-    },
-    storeListItemName: {
-        color: '#D11B00',
-        fontFamily: commonStyles.fontFamilyList.Lato,
-        fontSize: 30,
-    },
-    storeListItemType: {
-        color: '#000000',
-        fontFamily: commonStyles.fontFamilyList.Lato,
-        fontSize: 20,
-    },
-    storeListItemDelivery: {
-        color: '#000000',
-        fontFamily: commonStyles.fontFamilyList.Lato,
-        fontSize: 17,
-    },
-    storeListItemDeliveryTime: {
-        color: '#000000',
-        fontSize: 17,
-        marginTop: 5
-    }
-
 })

@@ -39,23 +39,7 @@ export default class OrderItem extends Component {
         console.log(this.state.orderListItens)
       }
 
-        carregarDados = async () => {
-            // const stateString = await AsyncStorage.getItem('userBasketItens')
-            // const state = JSON.parse(stateString)
-            // this.setState({ basketItemAmountList: state })
-            // this.setState({ basketItemAmount: this.state.basketItemAmountList.length })
-            // console.log('--------------------------------------------------------------')
-            // console.log('-- Item em memória - Cesta de Compras (componentDidMount) ----')
-            // console.log(this.state)
-            // console.log('------------- Qtd. Itens -----------------')
-            // console.log(this.state.basketItemAmount)
-            // console.log('------------------------------------------')
-   
-        }
-    
         componentDidMount = () => {
-            //
-            this.carregarDados()
             //
             BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick)
             //
@@ -67,26 +51,26 @@ export default class OrderItem extends Component {
           }
 
         getOrderItensSum = () => {
-            console.log('------ getOrderSum ------')
+            //console.log('------ getOrderSum ------')
             let sumOrder = 0
             let totalSum =
                 this.state.orderListItens.forEach((item, index) => {
-                    console.log(item.itemPrice)
+                    //console.log(item.itemPrice)
                     sumOrder = sumOrder + item.itemPrice
                 })
-            console.log(sumOrder)
+            //console.log(sumOrder)
             return sumOrder
         }
 
         getOrderSum = () => {
-            console.log('------ getOrderSum ------')
+            //console.log('------ getOrderSum ------')
             let sumOrder = 0
             let totalSum =
                 this.state.orderListItens.forEach((item, index) => {
-                    console.log(item.itemPrice)
+                    //console.log(item.itemPrice)
                     sumOrder = sumOrder + item.itemPrice
                 })
-            console.log(sumOrder)
+            //console.log(sumOrder)
             return sumOrder + 5
         }
 
@@ -118,7 +102,7 @@ export default class OrderItem extends Component {
                                                 backgroundColor: '#FFFFFF',
                                                 marginTop: 10,
                                                 flexDirection: 'row',
-                                                width: 390,
+                                                //width: 390,
                                                 height: 150,
                                                 borderRadius: 30
                                             }}>
@@ -149,7 +133,7 @@ export default class OrderItem extends Component {
                                                         alignItems: 'center'
                                                     }}>
                                                         <Text style={{
-                                                            //fontFamily: commonStyles.fontFamilyList.Lato,
+                                                            fontFamily: commonStyles.fontFamilyList.Lato,
                                                             color: '#D11B00',
                                                             fontSize: 20
                                                         }}>
@@ -185,7 +169,7 @@ export default class OrderItem extends Component {
                                                         flexDirection: 'row',
                                                         marginTop: 10,
                                                         alignItems: 'center',
-                                                        width: 390,
+                                                        //width: 390,
                                                         height: 120,
                                                         borderRadius: 25,
                                                         marginBottom: 10
@@ -242,95 +226,98 @@ export default class OrderItem extends Component {
                                                         </View>
                                                     </View>
                                                     <View style={{
-                                                        backgroundColor: '#FFFFFF',
-                                                        flexDirection: 'row',
-                                                        alignItems: 'center',
-                                                        width: 390,
-                                                        height: 120,
-                                                        borderRadius: 25,
-                                                        marginBottom: 10,
-                                                    }}>
-                                                        <View
-                                                            style={{
-                                                                flexDirection: 'row',
-                                                                marginLeft: 20,
+                                                    backgroundColor: '#FFFFFF',
+                                                    //flexDirection: 'row',
+                                                    //alignItems: 'center',
+                                                    //justifyContent: 'center',
+                                                    //width: 390,
+                                                    maxHeight: 140,
+                                                    padding: 15,
+                                                    borderRadius: 25,
+                                                    marginBottom: 10,
+                                                }}>
+                                                    <View
+                                                        style={{
+                                                            //flexDirection: 'row',
+                                                            //marginLeft: 20,
+                                                            
+                                                        }}>
+                                                        <View>
+                                                            <View style={{
+                                                                //flexDirection: 'row',
+                                                                //width: 270,
+                                                                //justifyContent: 'center'
                                                             }}>
-                                                            <View>
                                                                 <View style={{
-                                                                    //flexDirection: 'row',
-                                                                    width: 270,
-                                                                    alignContent: 'center'
+                                                                    flexDirection: 'row',
+                                                                    justifyContent: 'space-between',
+                                                                    //width: 340
                                                                 }}>
-                                                                    <View style={{
-                                                                        flexDirection: 'row',
-                                                                        justifyContent: 'space-between',
-                                                                        width: 340
+                                                                    <Text style={{
+                                                                        fontSize: 25,
+                                                                        fontFamily:
+                                                                            commonStyles.fontFamilyList.Lato,
+                                                                        marginLeft: 5
                                                                     }}>
-                                                                        <Text style={{
-                                                                            fontSize: 25,
-                                                                            fontFamily:
-                                                                                commonStyles.fontFamilyList.Lato,
-                                                                            marginLeft: 5
-                                                                        }}>
-                                                                            {this.state.orderListItens.length} Produto(s)
-                                                                        </Text>
-                                                                        <Text style={{
-                                                                            fontSize: 25,
-                                                                            fontFamily:
-                                                                                commonStyles.fontFamilyList.Lato,
-                                                                            marginLeft: 5
-                                                                        }}>
-                                                                            {currencyFormat(this.getOrderItensSum())}
-                                                                        </Text>
-                                                                    </View>
-                                                                    <View style={{
-                                                                        flexDirection: 'row',
-                                                                        justifyContent: 'space-between',
-                                                                        width: 340
+                                                                        {this.state.orderListItens.length} Produto(s)
+                                                                    </Text>
+                                                                    <Text style={{
+                                                                        fontSize: 25,
+                                                                        fontFamily:
+                                                                            commonStyles.fontFamilyList.Lato,
+                                                                        marginLeft: 5
                                                                     }}>
-                                                                        <Text style={{
-                                                                            fontSize: 25,
-                                                                            fontFamily:
-                                                                                commonStyles.fontFamilyList.Lato,
-                                                                            marginLeft: 5
-                                                                        }}>
-                                                                            Frete
-                                                                        </Text>
-                                                                        <Text style={{
-                                                                            fontSize: 25,
-                                                                            fontFamily:
-                                                                                commonStyles.fontFamilyList.Lato,
-                                                                            marginLeft: 5
-                                                                        }}>
-                                                                            R$ 5.00
-                                                                        </Text>
-                                                                    </View>
-                                                                    <View style={{
-                                                                        flexDirection: 'row',
-                                                                        justifyContent: 'space-between',
-                                                                        width: 340
+                                                                        {currencyFormat(this.getOrderItensSum())}
+                                                                    </Text>
+                                                                </View>
+                                                                <View style={{
+                                                                    flexDirection: 'row',
+                                                                    justifyContent: 'space-between',
+                                                                    //width: 340
+                                                                }}>
+                                                                    <Text style={{
+                                                                        fontSize: 25,
+                                                                        fontFamily:
+                                                                            commonStyles.fontFamilyList.Lato,
+                                                                        marginLeft: 5
                                                                     }}>
-                                                                        <Text style={{
-                                                                            fontSize: 25,
-                                                                            fontFamily:
-                                                                                commonStyles.fontFamilyList.Lato,
-                                                                            marginLeft: 5
-                                                                        }}>
-                                                                            Total pago
-                                                                        </Text>
-                                                                        <Text style={{
-                                                                            fontSize: 25,
-                                                                            fontFamily:
-                                                                                commonStyles.fontFamilyList.Lato,
-                                                                            marginLeft: 5
-                                                                        }}>
-                                                                            {currencyFormat(this.getOrderSum())}
-                                                                        </Text>
-                                                                    </View>
+                                                                        Frete
+                                                                    </Text>
+                                                                    <Text style={{
+                                                                        fontSize: 25,
+                                                                        fontFamily:
+                                                                            commonStyles.fontFamilyList.Lato,
+                                                                        marginLeft: 5
+                                                                    }}>
+                                                                        R$ 5.00
+                                                                    </Text>
+                                                                </View>
+                                                                <View style={{
+                                                                    flexDirection: 'row',
+                                                                    justifyContent: 'space-between',
+                                                                    //width: 340
+                                                                }}>
+                                                                    <Text style={{
+                                                                        fontSize: 25,
+                                                                        fontFamily:
+                                                                            commonStyles.fontFamilyList.Lato,
+                                                                        marginLeft: 5
+                                                                    }}>
+                                                                        Total pago
+                                                                    </Text>
+                                                                    <Text style={{
+                                                                        fontSize: 25,
+                                                                        fontFamily:
+                                                                            commonStyles.fontFamilyList.Lato,
+                                                                        marginLeft: 5
+                                                                    }}>
+                                                                        {currencyFormat(this.getOrderSum())}
+                                                                    </Text>
                                                                 </View>
                                                             </View>
                                                         </View>
                                                     </View>
+                                                </View>
                                                 </View>
                                                 : null
                                             }

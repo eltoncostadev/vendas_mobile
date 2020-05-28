@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Platform, ScrollView, View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { AsyncStorage } from 'react-native'
 import { DrawerItems } from 'react-navigation-drawer'
+import commonStyles from '../commonStyles'
 
 export default class Menu extends Component {
 
@@ -44,7 +45,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     userGreeting: {
-        fontFamily: 'LeckerliOne-Regular',
+        fontFamily: commonStyles.fontFamilyList.Lato,
         fontSize: 22,
         marginLeft: 15
     }
