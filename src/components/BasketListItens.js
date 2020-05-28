@@ -340,17 +340,21 @@ export default class BasketListItens extends Component {
                                             backgroundColor: '#FFFFFF',
                                             marginTop: 10,
                                             flexDirection: 'row',
+                                            alignItems: 'center',
+                                            justifyContent: 'space-between',
                                             //width: 390,
                                             height: 150,
-                                            borderRadius: 30
+                                            borderRadius: 30,
+                                            paddingRight: 10,
+                                            paddingLeft: 15,
+
                                         }}>
                                             <View style={{
                                                 //backgroundColor: '#D11B00',
-                                                height: 130,
-                                                width: 130,
-                                                marginTop: 10,
-                                                marginLeft: 10,
-                                                alignItems: 'center'
+                                                //height: 130,
+                                                //width: 130,
+                                                //marginTop: 10,
+                                                //marginLeft: 10,
                                             }}>
                                                 <Image
                                                     source={item.ItemDetail.itemImage}
@@ -360,88 +364,98 @@ export default class BasketListItens extends Component {
                                                     }} />
                                             </View>
                                             <View style={{
-                                                marginLeft: 5,
-                                                marginTop: 10
+                                                //backgroundColor: 'blue'
                                             }}>
                                                 <View style={{
                                                     //backgroundColor: 'gray',
                                                     height: 60,
-                                                    width: 170,
+                                                    width: 150,
                                                     flexDirection: 'row',
                                                     alignItems: 'center'
                                                 }}>
                                                     <Text style={{
                                                         //fontFamily: commonStyles.fontFamilyList.Lato,
                                                         color: '#D11B00',
-                                                        fontSize: 20
+                                                        fontSize: 17
                                                     }}>
                                                         {item.ItemDetail.itemName}
                                                     </Text>
                                                 </View>
-                                                <Text
-                                                    style={{
-                                                        fontSize: 15,
-                                                        marginBottom: 5
-                                                    }}
-                                                >
-                                                    {currencyFormat(item.ItemDetail.itemPrice)}
-                                                </Text>
-                                                <ControlItemPrice
-                                                    {...this.props}
-                                                    onClickSub={() => this.ItemSub(item)}
-                                                    onClickAdd={() => this.ItemAdd(item)}
-                                                    iconSize={40}
-                                                    controlMargin={10}
-                                                    controlHeight={30}
-                                                    controlWidth={70}
-                                                    displaySize={20}
-                                                    itemAmount={item.itemAmount}
-                                                />
-                                            </View>
-                                            <View style={{
-                                                //backgroundColor: 'gray',
-                                                height: 130,
-                                                width: 60,
-                                                marginTop: 10,
-                                                marginLeft: 10,
-                                                alignItems: 'center'
-                                            }}>
-                                                <TouchableWithoutFeedback
-                                                    onPress={() =>
-                                                        this.removeItemFromBasket(item)
-                                                    }>
-                                                    <Icon
-                                                        name='trash'
+                                                <View>
+                                                    <Text
                                                         style={{
-                                                            fontSize: 30,
-                                                            color: '#ffa799',
-
-                                                        }} />
-                                                </TouchableWithoutFeedback>
+                                                            fontSize: 15,
+                                                            marginBottom: 5
+                                                        }}
+                                                    >
+                                                        {currencyFormat(item.ItemDetail.itemPrice)}
+                                                    </Text>
+                                                </View>
+                                                <View 
+                                                    style={{
+                                                        //backgroundColor: 'blue'
+                                                        maxWidth: 80
+                                                    }}>
+                                                    <ControlItemPrice
+                                                        {...this.props}
+                                                        onClickSub={() => this.ItemSub(item)}
+                                                        onClickAdd={() => this.ItemAdd(item)}
+                                                        iconSize={40}
+                                                        controlMargin={10}
+                                                        controlHeight={30}
+                                                        controlWidth={80}
+                                                        displaySize={20}
+                                                        itemAmount={item.itemAmount}
+                                                    />
+                                                </View>
                                             </View>
+                                                <View style={{
+                                                    //backgroundColor: 'gray',
+                                                    flexDirection: 'row',
+                                                    justifyContent: 'flex-start',
+                                                    height: 130,
+                                                    paddingRight: 10
+
+                                                }}>
+                                                    <TouchableWithoutFeedback
+                                                        onPress={() =>
+                                                            this.removeItemFromBasket(item)
+                                                        }>
+                                                        <Icon
+                                                            name='trash'
+                                                            style={{
+                                                                fontSize: 30,
+                                                                color: '#ffa799',
+
+                                                            }} />
+                                                    </TouchableWithoutFeedback>
+                                               </View>
                                         </View>
                                         {this.state.basketItemAmountList.length - 1 === index
                                             ?
                                             <View>
                                                 <View style={{
                                                     backgroundColor: '#FFFFFF',
-                                                    flexDirection: 'row',
+                                                    //flexDirection: 'row',
                                                     marginTop: 10,
-                                                    alignItems: 'center',
+                                                    //alignContent: 'center',
+                                                    justifyContent: 'space-between',
                                                     //width: 390,
-                                                    height: 120,
+                                                    height: 130,
                                                     borderRadius: 25,
                                                     marginBottom: 10
                                                 }}>
                                                     <View
                                                         style={{
                                                             flexDirection: 'row',
-                                                            marginLeft: 20
+                                                            justifyContent: 'space-between',
+                                                            marginLeft: 20,
+                                                            marginTop: 10
                                                         }}>
                                                         <View>
                                                             <View style={{
                                                                 flexDirection: 'row',
-                                                                width: 270,
+                                                                //width: 270,
                                                             }}>
                                                                 <Icon name='map-marker'
                                                                     style={{
@@ -457,13 +471,14 @@ export default class BasketListItens extends Component {
                                                                 </Text>
                                                             </View>
                                                             <View style={{
-                                                                width: 250
+                                                                width: 250,
+                                                                //marginLeft: 15
                                                             }}>
                                                                 <Text style={{
                                                                     fontSize: 18,
                                                                     color: 'gray'
                                                                 }}>
-                                                                    Av. Afonso Pena, Bloco 100, Ap. 300
+                                                                    Av. Afonso Pena, 100 - Bloco 100, Ap. 300
                                                                 </Text>
                                                                 <Text style={{
                                                                     fontSize: 18,
@@ -474,11 +489,9 @@ export default class BasketListItens extends Component {
                                                             </View>
                                                         </View>
                                                         <View style={{
-                                                            //marginLeft: 40
-                                                            flexDirection: 'row',
-                                                            alignItems: 'center',
                                                             justifyContent: 'center',
-                                                            width: 120
+                                                            paddingRight: 15,
+                                                            //backgroundColor: 'red'
                                                         }}>
                                                             <Icon name='edit'
                                                                 style={{
@@ -490,23 +503,26 @@ export default class BasketListItens extends Component {
                                                 </View>
                                                 <View style={{
                                                     backgroundColor: '#FFFFFF',
-                                                    flexDirection: 'row',
-                                                    alignItems: 'center',
+                                                    //flexDirection: 'row',
+                                                    //alignItems: 'center',
+                                                    //justifyContent: 'center',
                                                     //width: 390,
                                                     height: 190,
+                                                    padding: 15,
                                                     borderRadius: 25,
-                                                    marginBottom: 10,
+                                                    //marginBottom: 10,
                                                 }}>
                                                     <View
                                                         style={{
-                                                            flexDirection: 'row',
-                                                            marginLeft: 20,
+                                                            //flexDirection: 'row',
+                                                            //marginLeft: 20,
+                                                            
                                                         }}>
                                                         <View>
                                                             <View style={{
                                                                 //flexDirection: 'row',
                                                                 //width: 270,
-                                                                //alignContent: 'center'
+                                                                //justifyContent: 'center'
                                                             }}>
                                                                 <View style={{
                                                                     flexDirection: 'row',
@@ -579,7 +595,7 @@ export default class BasketListItens extends Component {
                                                                 onPress={ () => this.setState({ showCheckOut : true }) }>
                                                                 <View style={{
                                                                     height: 50,
-                                                                    //width: 340,
+                                                                    //width: 300,
                                                                     marginTop: 10,
                                                                     borderRadius: 30,
                                                                     backgroundColor: '#FCD75D',

@@ -76,7 +76,7 @@ export default class PriceListItens extends Component {
             },
             {
                 id: Math.random(),
-                itemName: 'Pera Williams',
+                itemName: 'Pera Williams com nome grande',
                 itemPrice: 3.50,
                 itemImage: imgPera
             },

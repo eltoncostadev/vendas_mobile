@@ -125,7 +125,9 @@ const styles = StyleSheet.create({
     },
     listPriceButton: {
         backgroundColor: '#ED9C50',
-        margin: 30,
+        marginTop: 30,
+        marginRight: 15,
+        marginLeft: 15,
         height: 80,
         borderRadius: 35,
         flexDirection: 'row',
@@ -142,6 +144,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#EDD3AA',
         height: 220,
         borderRadius: 20,
+        marginTop: 10,
         marginRight: 10,
         marginLeft: 10,
     },
@@ -165,6 +168,6 @@ const styles = StyleSheet.create({
     },
     tips: {
         flex: 4,
-        marginTop: 80
+        marginTop: 40
     }
 })

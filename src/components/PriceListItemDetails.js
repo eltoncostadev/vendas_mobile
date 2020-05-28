@@ -193,11 +193,13 @@ export default class PriceListItemDetails extends Component {
                                 <TextInput style={{ fontSize: 15, color: '#D11B00', marginLeft: 15 }} placeholder='Observações' />
                             </View>
                             <View style={styles.itemPriceControl}>
-                                <View style={{
-                                    flexDirection: 'row',
-                                    justifyContent: 'space-between',
-                                    //width: 390,
 
+                                <View style={{
+                                    //flexDirection: 'row',
+                                    //justifyContent: 'space-between',
+                                    //width: 390,
+                                    //backgroundColor: 'blue',
+                                    //alignItems: 'center',
                                     marginTop: 10,
                                     paddingRight: 20,
                                     paddingLeft: 20
@@ -219,6 +221,7 @@ export default class PriceListItemDetails extends Component {
                                             itemAmount: this.state.itemAmount + 1 }, 
                                             this.atualizaValor)}
                                         itemAmount={this.state.itemAmount} />
+
                                 </View>
                                 <View style={{
                                     flexDirection: 'row',
@@ -298,7 +301,7 @@ const styles = StyleSheet.create({
     title: {
         fontFamily: commonStyles.fontFamilyList.LeckerliOneRegular,
         color: '#FFFFFF',
-        fontSize: 35,
+        fontSize: 25,
         marginRight: 15
     },
     storeList: {

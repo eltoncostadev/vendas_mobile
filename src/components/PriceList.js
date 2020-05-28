@@ -67,7 +67,7 @@ export default class PriceList extends Component {
                                 style={styles.menuIcon} />
                         </TouchableOpacity>
                         <Text style={styles.title}>
-                            Lista de Preço
+                            Categorias
                         </Text>
                         <BasketItensView 
                             {...this.props}

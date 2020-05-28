@@ -11,30 +11,35 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 export default class ControlItemPrice extends Component {
     render() {
         return (
-            <View style={{ flexDirection: 'row' }}>
+            <View style={{ flexDirection: 'row',
+                           justifyContent: 'space-between',
+                           //paddingLeft: 15,
+                           //paddingRight: 15 
+                        }}>
                 <TouchableWithoutFeedback
                     onPress={this.props.onClickSub}>
                     <Icon style={{ fontSize: this.props.iconSize, 
                                    color: '#D11B00' }} name='minus-circle' />
                 </TouchableWithoutFeedback>
-                <View style={{
-                    //marginTop: 25,
-                    marginTop: this.props.controlMargin,
-                    borderBottomWidth: 2,
-                    borderBottomColor: '#D11B00',
-                    height: this.props.controlHeight,
-                    width: this.props.controlWidth,
-                    flexDirection: 'row',
-                    alignContent: 'center',
-                    justifyContent: 'center',
-                }}>
-                    <Text style={{
-                        fontSize: this.props.displaySize, 
-                        color: '#D11B00' ,
+                    <View style={{
+                        //marginTop: 25,
+                        marginTop: this.props.controlMargin,
+                        borderBottomWidth: 2,
+                        borderBottomColor: '#D11B00',
+                        height: this.props.controlHeight,
+                        //backgroundColor: 'gray',
+                        width: this.props.controlWidth,
+                        //flexDirection: 'row',
+                        alignItems: 'center',
+                        //justifyContent: 'space-between',
                     }}>
-                        {this.props.itemAmount}
-                    </Text>
-                </View>
+                        <Text style={{
+                            fontSize: this.props.displaySize, 
+                            color: '#D11B00' ,
+                        }}>
+                            {this.props.itemAmount}
+                        </Text>
+                    </View>
                 <TouchableWithoutFeedback
                     onPress={this.props.onClickAdd}>
                     <Icon style={{ fontSize: this.props.iconSize, 
