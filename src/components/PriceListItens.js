@@ -38,10 +38,10 @@ export default class PriceListItens extends Component {
         //
         this.handleBackButtonClick = this.handleBackButtonClick.bind(this)
         //
-        console.log('-------------------------------------------')
-        console.log('-------------- Price List Itens -----------')
-        console.log(this.props)
-        console.log('-------------------------------------------')
+        // console.log('-------------------------------------------')
+        // console.log('-------------- Price List Itens -----------')
+        // console.log(this.props)
+        // console.log('-------------------------------------------')
     }
     componentDidMount() {
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick)
@@ -76,7 +76,7 @@ export default class PriceListItens extends Component {
             },
             {
                 id: Math.random(),
-                itemName: 'Pera Williams com nome grande',
+                itemName: 'Pera Williams',
                 itemPrice: 3.50,
                 itemImage: imgPera
             },

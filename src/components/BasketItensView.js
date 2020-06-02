@@ -30,15 +30,15 @@ export default class BasketItensView extends Component {
         const basketItemCopy = this.state.basketItemList === null ? [] : this.state.basketItemList
         const qtdItens = basketItemCopy.push(item)
 
-        console.log(qtdItens)
+        //console.log(qtdItens)
 
         this.state = {
             basketItemAmount : basketItemAmounUpdate,
             basketItemList : basketItemCopy
         }
-        console.log('---------- Novo state --------------------')
-        console.log(this.state)
-        console.log(this.state.basketItemAmount)
+        // console.log('---------- Novo state --------------------')
+        // console.log(this.state)
+        // console.log(this.state.basketItemAmount)
         this.setState({ basketItemAmount : this.state.basketItemAmount }) 
 
         if(this.state.basketItemList && this.state.basketItemAmount > 0){
@@ -54,18 +54,18 @@ export default class BasketItensView extends Component {
         const stateString = await AsyncStorage.getItem('userBasketItens')
         const state = JSON.parse(stateString)
         
-        console.log('-------------- TESTE ------------------------')
-        console.log(stateString)
+        //console.log('-------------- TESTE ------------------------')
+        //console.log(stateString)
         this.setState({ basketItemList : state })
 
         if(this.state.basketItemList && this.state.basketItemList.length > 0 ){
             this.setState({ basketItemAmount : this.state.basketItemList.length })
-            console.log('------------------------------------------')
-            console.log('---------- Item em memória ----------------')
-            console.log(this.state)
-            console.log(this.state.basketItemList.length)
-            console.log(this.state.basketItemAmount)
-            console.log('------------------------------------------')
+            // console.log('------------------------------------------')
+            // console.log('---------- Item em memória ----------------')
+            // console.log(this.state)
+            // console.log(this.state.basketItemList.length)
+            // console.log(this.state.basketItemAmount)
+            // console.log('------------------------------------------')
         }
 
     }

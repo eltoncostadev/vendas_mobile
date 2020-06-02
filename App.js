@@ -20,6 +20,7 @@ import PriceListItem from './src/components/PriceListItem'
 import PriceListItens from './src/components/PriceListItens'
 import PriceListItemDetails from './src/components/PriceListItemDetails'
 import BasketListItens from './src/components/BasketListItens'
+import PaymentView from './src/components/PaymentView'
 
 const menuConfig = {
   initialRouteName: 'Home',
@@ -70,7 +71,7 @@ const App = createStackNavigator({
     BasketListItens: {screen: BasketListItens, navigationOptions: {headerShown: false} }, 
     Orders: {screen: Orders, navigationOptions: {headerShown: false} }, 
     OrderItem: {screen: OrderItem, navigationOptions: {headerShown: false} }, 
-
+    PaymentView: {screen: PaymentView, navigationOptions: {headerShown: false} }, 
   },
   {
     initialRouteName: 'Login',

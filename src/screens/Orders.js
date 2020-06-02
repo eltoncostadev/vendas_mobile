@@ -43,7 +43,7 @@ export default class Orders extends Component {
             // console.log('---------------------------------------------')
             // console.log('--------------- carregarDados ---------------')
             this.setState({ userOrders: state })
-            console.log(this.state.userOrders)
+            //console.log(this.state)
         }
 
         componentDidMount = () => {
@@ -119,7 +119,7 @@ export default class Orders extends Component {
                                                 </View>
                                                 <TouchableWithoutFeedback
                                                     onPress={() => this.props.navigation.navigate('OrderItem'
-                                                    ,{orderListItens : item.orderListItens})}>
+                                                    ,{userOrder : item})}>
                                                     <View style={{
                                                         flexDirection: 'row',
                                                         marginTop: 10,

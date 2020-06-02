@@ -48,7 +48,8 @@ export default class BasketListItens extends Component {
         basketItemAmount: 0,
         basketItemAmountList: [], 
         userOrders: [],
-        showCheckOut: false
+        showCheckOut: false,
+        allowPaymentOnDelivery: false
     }
 
     constructor(props) {
@@ -64,12 +65,12 @@ export default class BasketListItens extends Component {
         const state = JSON.parse(stateString)
         this.setState({ basketItemAmountList: state })
         this.setState({ basketItemAmount: this.state.basketItemAmountList.length })
-        console.log('--------------------------------------------------------------')
-        console.log('-- Item em memória - Cesta de Compras (componentDidMount) ----')
-        console.log(this.state)
-        console.log('------------- Qtd. Itens -----------------')
-        console.log(this.state.basketItemAmount)
-        console.log('------------------------------------------')
+        // console.log('--------------------------------------------------------------')
+        // console.log('-- Item em memória - Cesta de Compras (componentDidMount) ----')
+        // console.log(this.state)
+        // console.log('------------- Qtd. Itens -----------------')
+        // console.log(this.state.basketItemAmount)
+        // console.log('------------------------------------------')
 
         if(this.state.basketItemAmount === 0)
         {
@@ -99,9 +100,9 @@ export default class BasketListItens extends Component {
     }
 
     ItemAdd = async (id) => {
-        console.log('------------ ID --------------------------')
-        console.log(id)
-        console.log('------------------------------------------')
+        // console.log('------------ ID --------------------------')
+        // console.log(id)
+        // console.log('------------------------------------------')
         let newbasketItemAmountList = this.state.basketItemAmountList.map(item => (
             item.itemDetailId ===
                 id.itemDetailId ? {
@@ -109,9 +110,9 @@ export default class BasketListItens extends Component {
                     itemPrice: item.ItemDetail.itemPrice * (item.itemAmount + 1)
                 } : item
         ))
-        console.log('------------ Atualizar item na cesta (+) -----')
-        console.log(newbasketItemAmountList)
-        console.log('------------------------------------------')
+        // console.log('------------ Atualizar item na cesta (+) -----')
+        // console.log(newbasketItemAmountList)
+        // console.log('------------------------------------------')
 
         this.state = {
             basketItemAmount: this.state.basketItemAmount,
@@ -128,9 +129,9 @@ export default class BasketListItens extends Component {
 
         if (itemSub.itemAmount - 1 === 0) return false
 
-        console.log('------------ itemSub ---------------------')
-        console.log(itemSub)
-        console.log('------------------------------------------')
+        // console.log('------------ itemSub ---------------------')
+        // console.log(itemSub)
+        // console.log('------------------------------------------')
         let newbasketItemAmountList = this.state.basketItemAmountList.map(item => (
             item.itemDetailId ===
                 itemSub.itemDetailId ? {
@@ -138,9 +139,9 @@ export default class BasketListItens extends Component {
                     itemPrice: item.ItemDetail.itemPrice * (item.itemAmount - 1)
                 } : item
         ))
-        console.log('------------ Atualizar item na cesta (-) -----')
-        console.log(newbasketItemAmountList)
-        console.log('----------------------------------------------')
+        // console.log('------------ Atualizar item na cesta (-) -----')
+        // console.log(newbasketItemAmountList)
+        // console.log('----------------------------------------------')
 
         this.state = {
             basketItemAmount: this.state.basketItemAmount,
@@ -154,9 +155,9 @@ export default class BasketListItens extends Component {
     }
 
     removeItemFromBasket = async (itemDelete) => {
-        console.log('------------- removeItemFromBasket ---------------------')
-        console.log(itemDelete)
-        console.log(this.state.basketItemAmountList)
+        // console.log('------------- removeItemFromBasket ---------------------')
+        // console.log(itemDelete)
+        // console.log(this.state.basketItemAmountList)
         const newbasketItemAmountList =
             this.state.basketItemAmountList.filter(
                 item => item.itemDetailId !== itemDelete.itemDetailId)
@@ -237,8 +238,8 @@ export default class BasketListItens extends Component {
             basketItemAmountList: null, 
         }
         //
-        console.log('------------------basketItemAmountList--------------------------------')
-        console.log(this.state.basketItemAmountList)
+        // console.log('------------------basketItemAmountList--------------------------------')
+        // console.log(this.state.basketItemAmountList)
         //
         AsyncStorage.setItem('userBasketItens',
             JSON.stringify(this.state.basketItemAmountList))
@@ -253,15 +254,15 @@ export default class BasketListItens extends Component {
         const state = JSON.parse(stateString)
 
         
-        console.log('---------------------------------------------')
-        console.log('--------------- addUserOrder ----------------')
-        console.log(state)
+        // console.log('---------------------------------------------')
+        // console.log('--------------- addUserOrder ----------------')
+        // console.log(state)
         this.setState({ userOrders: state })
         
-        console.log(this.state.userOrders)
+        //console.log(this.state.userOrders)
 
         if(this.state.userOrders === null){
-            console.log('novo')
+            //console.log('novo')
             let newOrderItem = []
             let qtd = newOrderItem.push({
                     orderListItens : this.state.basketItemAmountList,
@@ -269,23 +270,23 @@ export default class BasketListItens extends Component {
                     orderValue : currencyFormat(this.getOrderSum()),
                     orderDate : new Date()
                 })
-            console.log(newOrderItem)
+            //console.log(newOrderItem)
             this.setState({userOrders : newOrderItem})
-            console.log(this.state.userOrders)
+            //console.log(this.state.userOrders)
 
             await AsyncStorage.setItem('userOrders',
                 JSON.stringify(this.state.userOrders))
         }else{
-            console.log('mais 1')
+            //console.log('mais 1')
             let newOrderItem = this.state.userOrders
             let qtd = newOrderItem.push({
                     orderListItens : this.state.basketItemAmountList,
                     orderItensCount : this.state.basketItemAmountList.length,
                     orderValue : currencyFormat(this.getOrderSum())
                 })
-            console.log(newOrderItem)
+            //console.log(newOrderItem)
             this.setState({userOrders : newOrderItem})
-            console.log(this.state.userOrders)
+            //console.log(this.state.userOrders)
 
             await AsyncStorage.setItem('userOrders',
                 JSON.stringify(this.state.userOrders))
@@ -515,26 +516,18 @@ export default class BasketListItens extends Component {
                                                 }}>
                                                     <View
                                                         style={{
-                                                            //flexDirection: 'row',
-                                                            //marginLeft: 20,
-                                                            
                                                         }}>
                                                         <View>
                                                             <View style={{
-                                                                //flexDirection: 'row',
-                                                                //width: 270,
-                                                                //justifyContent: 'center'
                                                             }}>
                                                                 <View style={{
                                                                     flexDirection: 'row',
                                                                     justifyContent: 'space-between',
-                                                                    //width: 340
                                                                 }}>
                                                                     <Text style={{
                                                                         fontSize: 25,
                                                                         fontFamily:
                                                                             commonStyles.fontFamilyList.Lato,
-                                                                        marginLeft: 5
                                                                     }}>
                                                                         {this.state.basketItemAmountList.length} Produto(s)
                                                                     </Text>
@@ -542,7 +535,6 @@ export default class BasketListItens extends Component {
                                                                         fontSize: 25,
                                                                         fontFamily:
                                                                             commonStyles.fontFamilyList.Lato,
-                                                                        marginLeft: 5
                                                                     }}>
                                                                         {currencyFormat(this.getOrderItensSum())}
                                                                     </Text>
@@ -550,13 +542,11 @@ export default class BasketListItens extends Component {
                                                                 <View style={{
                                                                     flexDirection: 'row',
                                                                     justifyContent: 'space-between',
-                                                                    //width: 340
                                                                 }}>
                                                                     <Text style={{
                                                                         fontSize: 25,
                                                                         fontFamily:
                                                                             commonStyles.fontFamilyList.Lato,
-                                                                        marginLeft: 5
                                                                     }}>
                                                                         Frete
                                                                     </Text>
@@ -564,7 +554,6 @@ export default class BasketListItens extends Component {
                                                                         fontSize: 25,
                                                                         fontFamily:
                                                                             commonStyles.fontFamilyList.Lato,
-                                                                        marginLeft: 5
                                                                     }}>
                                                                         {currencyFormat(this.getDeliveryCost())}
                                                                     </Text>
@@ -572,13 +561,11 @@ export default class BasketListItens extends Component {
                                                                 <View style={{
                                                                     flexDirection: 'row',
                                                                     justifyContent: 'space-between',
-                                                                    //width: 340
                                                                 }}>
                                                                     <Text style={{
                                                                         fontSize: 25,
                                                                         fontFamily:
                                                                             commonStyles.fontFamilyList.Lato,
-                                                                        marginLeft: 5
                                                                     }}>
                                                                         Total a pagar
                                                                     </Text>
@@ -586,17 +573,15 @@ export default class BasketListItens extends Component {
                                                                         fontSize: 25,
                                                                         fontFamily:
                                                                             commonStyles.fontFamilyList.Lato,
-                                                                        marginLeft: 5
                                                                     }}>
                                                                         {currencyFormat(this.getOrderSum())}
                                                                     </Text>
                                                                 </View>
                                                             </View>
                                                             <TouchableWithoutFeedback
-                                                                onPress={ () => this.setState({ showCheckOut : true }) }>
+                                                                onPress={ () => navigate('PaymentView') }>
                                                                 <View style={{
                                                                     height: 50,
-                                                                    //width: 300,
                                                                     marginTop: 10,
                                                                     borderRadius: 30,
                                                                     backgroundColor: '#FCD75D',
@@ -607,10 +592,10 @@ export default class BasketListItens extends Component {
                                                                     <Text
                                                                         style={{
                                                                             color: '#006600',
-                                                                            fontSize: 30,
+                                                                            fontSize: 15,
                                                                             fontFamily: commonStyles.fontFamilyList.Lato,
                                                                         }}>
-                                                                        Realizar Pagamento
+                                                                            SELECIONAR FORMA DE PAGAMENTO
                                                                     </Text>
                                                                 </View>
                                                             </TouchableWithoutFeedback>
