@@ -430,7 +430,7 @@ export default class PaymentView extends Component {
                                                                         fontSize: 15,
                                                                         color: 
                                                                             this.state.allowPaymentOnLineCard === true ?
-                                                                                'black'
+                                                                                '#00cc00'
                                                                             :
                                                                                 '#FFFFFF'
                                                                     }}
@@ -484,7 +484,7 @@ export default class PaymentView extends Component {
                                                                         fontSize: 15,
                                                                         color: 
                                                                             this.state.allowPaymentOnDeliveryCard === true ?
-                                                                                'black'
+                                                                                '#00cc00'
                                                                             :
                                                                                 '#FFFFFF'
                                                                     }}
@@ -523,7 +523,7 @@ export default class PaymentView extends Component {
                                                                         fontSize: 15,
                                                                         color: 
                                                                             this.state.allowPaymentOnDeliveryMoney === true ?
-                                                                                'black'
+                                                                                '#00cc00'
                                                                             :
                                                                                 '#FFFFFF'
                                                                     }}

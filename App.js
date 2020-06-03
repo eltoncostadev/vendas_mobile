@@ -12,6 +12,7 @@ import Login from './src/screens/Login'
 import Home from './src/screens/Home'
 import Menu from './src/screens/Menu'
 import Orders from './src/screens/Orders'
+import Profile from './src/screens/Profile'
 import OrderItem from './src/components/OrderItem'
 import StoreList from './src/components/StoreList'
 import PriceList from './src/components/PriceList'
@@ -54,6 +55,13 @@ const MenuRoutes = {
           title: 'Meus Pedidos'
       }
   },
+  Profile: {
+      name: 'Perfil',
+      screen: props => <Profile title='Perfil' {...props} />,
+      navigationOptions: {
+          title: 'Perfil'
+      }
+  },
 }
 
 const MenuNavigator = createDrawerNavigator(MenuRoutes, menuConfig)
@@ -72,6 +80,7 @@ const App = createStackNavigator({
     Orders: {screen: Orders, navigationOptions: {headerShown: false} }, 
     OrderItem: {screen: OrderItem, navigationOptions: {headerShown: false} }, 
     PaymentView: {screen: PaymentView, navigationOptions: {headerShown: false} }, 
+    Profile: {screen: Profile, navigationOptions: {headerShown: false} }, 
   },
   {
     initialRouteName: 'Login',

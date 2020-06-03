@@ -19,22 +19,7 @@ import commonStyles from '../commonStyles'
 
 export default class Home extends Component {
 
-    state = {
-        stageNew: false,
-        email: '',
-        senha: '',
-        confirmacao: '',
-        nome: 'Elton'
-    }
-
-    componentDidMount = async () => {
-        const stateString = await AsyncStorage.getItem('userState')
-        const state = JSON.parse(stateString)
-        this.setState(state, this.filterTasks)
-        console.log(this.props.navigation.state)
-    }
-
-    render() {
+     render() {
         
         const { navigate } = this.props.navigation
 

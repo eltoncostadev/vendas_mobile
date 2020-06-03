@@ -13,7 +13,7 @@ export default props => {
 
 const styles = StyleSheet.create({
     container: {
-        width: '80%',
+        width: '100%',
         height: 50,
         backgroundColor: '#EEE',
         borderRadius: 20,
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     },
     input: {
         marginLeft: 10,
-        width: '70%',
+        //width: '70%',
         fontFamily: 'Lato',
         fontSize: 20
     }

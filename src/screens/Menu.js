@@ -4,15 +4,26 @@ import { AsyncStorage } from 'react-native'
 import { DrawerItems } from 'react-navigation-drawer'
 import commonStyles from '../commonStyles'
 
+const initialState = {
+    stageNew: false,
+    email: null,
+    password: null,
+    confirmPassword: null,
+    name: null
+}
+
 export default class Menu extends Component {
 
-    state = {
+   state = {
+       ...initialState
+   }
+
+   state = {
         stageNew: false,
-        email: '',
-        senha: '',
-        confirmacao: '',
-        nome: 'Maria',
-        singleListMode: true
+        email: null,
+        password: null,
+        confirmPassword: null,
+        name: null
     }
 
     componentDidMount = async () => {
@@ -26,7 +37,7 @@ export default class Menu extends Component {
             <ScrollView>
                 <View style={styles.header}>
                     <Text style={styles.userGreeting}>
-                        {`Olá, ${this.state.nome}!`}
+                        {`Olá, ${this.state.name}!`}
                     </Text>
                 </View>
             <DrawerItems {...this.props} />
