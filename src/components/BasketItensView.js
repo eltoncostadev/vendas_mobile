@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 import {NavigationEvents} from 'react-navigation'
 
-import { AsyncStorage } from 'react-native'
+import AsyncStorage from '@react-native-community/async-storage'
 
 
 const initialState = {

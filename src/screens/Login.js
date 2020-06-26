@@ -5,10 +5,11 @@ import {
     StyleSheet,
     View,
     TouchableOpacity,
-    ImageBackground
+    ImageBackground,
+    KeyboardAvoidingView
 } from 'react-native'
 
-import { AsyncStorage } from 'react-native'
+import AsyncStorage from '@react-native-community/async-storage'
 
 import InputIcon from '../components/InputIcon'
 
@@ -68,7 +69,9 @@ export default class Login extends Component {
                             style={{ width: 200, height: 200 }}
                         />
                         <Text style={styles.title}> Feira Online </Text>
-                        <View style={styles.formContainer}>
+                        <KeyboardAvoidingView
+                        behavior="padding"
+                         style={styles.formContainer}>
                             {this.state.stageNew &&
                                 <InputIcon
                                     icon='user'
@@ -123,7 +126,7 @@ export default class Login extends Component {
                                     </Text>
                                 </View>
                             </TouchableOpacity>
-                        </View>
+                        </KeyboardAvoidingView>
                     </View>
                 </ImageBackground>
         )

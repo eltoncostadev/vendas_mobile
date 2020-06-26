@@ -12,7 +12,7 @@ import {
     Alert
 } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import { AsyncStorage } from 'react-native'
+import AsyncStorage from '@react-native-community/async-storage'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 import { WebView } from 'react-native-webview'
 import styled from 'styled-components/native'

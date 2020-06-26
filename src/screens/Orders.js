@@ -12,7 +12,7 @@ import {
     NavigationEvents
 } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import { AsyncStorage } from 'react-native'
+import AsyncStorage from '@react-native-community/async-storage'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 import moment from 'moment'
 

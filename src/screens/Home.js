@@ -7,7 +7,7 @@ import {
     View,
     TouchableOpacity
 } from 'react-native'
-import { AsyncStorage } from 'react-native'
+import AsyncStorage from '@react-native-community/async-storage'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
 import InformationList from '../components/InformationList'

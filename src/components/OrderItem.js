@@ -11,7 +11,7 @@ import {
     TouchableOpacity
 } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import { AsyncStorage } from 'react-native'
+import AsyncStorage from '@react-native-community/async-storage'
 
 import commonStyles from '../commonStyles'
 import { currencyFormat } from '../common'

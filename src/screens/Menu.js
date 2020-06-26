@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Platform, ScrollView, View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-import { AsyncStorage } from 'react-native'
+import AsyncStorage from '@react-native-community/async-storage'
 import { DrawerItems } from 'react-navigation-drawer'
 import commonStyles from '../commonStyles'
 
