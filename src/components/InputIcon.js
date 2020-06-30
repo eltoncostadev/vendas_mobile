@@ -24,11 +24,12 @@ const styles = StyleSheet.create({
     icon: {
         color: '#333',
         marginLeft: 10,
-        fontSize: 20
+        fontSize: 20,
+        width: '6%'
     },
     input: {
         marginLeft: 10,
-        //width: '70%',
+        width: '84%',
         fontFamily: 'Lato',
         fontSize: 20
     }

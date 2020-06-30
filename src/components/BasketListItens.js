@@ -512,14 +512,13 @@ export default class BasketListItens extends Component {
                                                     maxHeight: 190,
                                                     padding: 15,
                                                     borderRadius: 25,
-                                                    //marginBottom: 10,
+                                                    marginBottom: 10,
                                                 }}>
                                                     <View
-                                                        style={{
+                                                        style={{ 
                                                         }}>
                                                         <View>
-                                                            <View style={{
-                                                            }}>
+                                                            <View style={{ }}>
                                                                 <View style={{
                                                                     flexDirection: 'row',
                                                                     justifyContent: 'space-between',

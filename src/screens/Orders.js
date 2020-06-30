@@ -46,10 +46,11 @@ export default class Orders extends Component {
             //console.log(this.state)
         }
 
-        componentDidMount = () => {
-            //
+        componentDidMount() {
             BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick)
-            //
+        }
+        componentWillUnmount() {
+            BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick)
         }
     
         handleBackButtonClick() {
@@ -84,13 +85,14 @@ export default class Orders extends Component {
                                             <View style={{
                                                 backgroundColor : '#FFFFFF',
                                                 //width: 390,
-                                                height: 180,
+                                                //height: '80%',
                                                 borderRadius: 25,
                                                 marginBottom: 10,
                                             }}>
                                                 <View style={{
                                                     marginTop: 10,
-                                                    marginLeft: 20
+                                                    marginLeft: 20,
+                                                    //height: '50%'
                                                 }}>
                                                     <Text style={{
                                                         fontSize: 30,
@@ -133,7 +135,8 @@ export default class Orders extends Component {
                                                             marginTop: 5,
                                                             //marginBottom: 10,
                                                             fontSize: 20,
-                                                            color: 'gray'
+                                                            color: 'gray',
+                                                            height: 35
                                                         }}>
                                                             Ver Detalhes
                                                         </Text>
@@ -150,16 +153,6 @@ export default class Orders extends Component {
     }
     
     const styles = StyleSheet.create({
-        container: {
-            backgroundColor: 'gray',
-            flex: 1,
-            height: '100%',
-            justifyContent: 'space-around',
-            left: 0,
-            position: 'absolute',
-            top: 0,
-            width: '100%'
-        },
         header: commonStyles.header,
         menuIcon: {
             color: '#FFFFFF',

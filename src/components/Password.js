@@ -17,16 +17,28 @@ const { width } = Dimensions.get('window')
 export default function Password(props) {
 
     const [offset] = useState(new Animated.ValueXY({x : 0, y : 80}))
+    
+    const [passWordTop, setPassWordTop] = useState('45%')
+    const [passWordHeight, setPassWordHeight] = useState('55%')
 
     useEffect(()=> {
         Animated.spring(offset.y, { toValue : 0 , speed : 1 }).start()
         //
-        keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', keyboardDidShow)
+        Keyboard.addListener('keyboardDidShow', keyboardDidShow)
+        Keyboard.addListener('keyboardDidHide', keyboardDidHide)
     },[])
+
+    function keyboardDidHide()
+    {
+        setPassWordTop('45%')
+        setPassWordHeight('55%')
+    }
+
 
     function keyboardDidShow()
     {
-        alert('Teclado aberto!')
+        setPassWordTop('25%')
+        setPassWordHeight('75%')
     }
 
     return(
@@ -34,12 +46,12 @@ export default function Password(props) {
             [
                 {
                     position: 'absolute',
-                    top: '45%',
+                    top: passWordTop,
                     borderTopLeftRadius: 20,
                     borderTopRightRadius: 20,
                     backgroundColor: '#FFFFFF',
                     width: width,
-                    height: '55%'
+                    height: passWordHeight
                 },
                 {
                     transform : [

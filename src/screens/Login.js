@@ -91,12 +91,12 @@ export default class Login extends Component {
                                 value={this.state.password}
                                 onChangeText={password => this.setState({ password })} />
                             {this.state.stageNew &&
-                                <InputIcon
-                                    icon='asterisk'
-                                    placeholder='Confirmação'
-                                    secureTextEntry={true}
-                                    value={this.state.confirmPassword}
-                                    onChangeText={confirmPassword => this.setState({ confirmPassword })} />
+                            <InputIcon
+                                icon='asterisk'
+                                placeholder='Confirmação'
+                                secureTextEntry={true}
+                                value={this.state.confirmPassword}
+                                onChangeText={confirmPassword => this.setState({ confirmPassword })} />
                             }
                             <TouchableOpacity 
                                 disabled={!validForm}

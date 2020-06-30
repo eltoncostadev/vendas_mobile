@@ -221,7 +221,7 @@ export default class OrderItem extends Component {
                                             </View>
                                             <View style={{
                                                 backgroundColor: '#FFFFFF',
-                                                height: 220,
+                                                //height: 220,
                                                 padding: 15,
                                                 borderRadius: 25,
                                                 marginBottom: 10,
