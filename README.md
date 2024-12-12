@@ -19,6 +19,4 @@ Vendas Mobile Prototype
 On April 2020 I started a learning journey for mobile development, among the existing ones I have chosen React Native.
 It proved being capable of maintaining high flexibility standards towards scalability.
 
-I am here to share a functional prototype developed while the learning time, although it is not 100% what I expect it to look like.
-There was the opportunity to apply many interesting things on it, next step is top apply Redux on the project to better manage the app state.
-Due to another priorities I had to stop it, but certainly I will be back on it soon.
+I would like to share the functional prototype that I developed during this learning period. It is not 100% as I would like, but I had the opportunity to apply many interesting things to it. The next phase would be to include Redux in the project to manage the application state. However, I stopped due to other priorities. However, I will certainly use it in a future initiative, with an eye also on Recoil, which is in beta.
