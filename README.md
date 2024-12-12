@@ -1,3 +1,5 @@
+![alt text](https://raw.githubusercontent.com/eltoncostadev/vendas_mobile/refs/heads/master/demo/Login.png)
+
 # vendas_mobile
 Vendas Mobile Protótipo
 
